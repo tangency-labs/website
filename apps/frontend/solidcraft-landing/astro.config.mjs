@@ -10,10 +10,7 @@ export default defineConfig({
 	output: "static",
 	trailingSlash: "always",
 	redirects: {
-		[new URL(site.discord).pathname]: {
-			status: 302,
-			destination: site.discordInvite,
-		},
+		[site.discord]: { status: 302, destination: site.discordInvite },
 	},
 	integrations: [
 		react(),
