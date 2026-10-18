@@ -1,0 +1,40 @@
+# SolidCraft
+
+> SolidCraft is open-source parametric CAD built in Rust for desktop and browser, with a command-line interface and local Model Context Protocol (MCP) server for compatible AI agents.
+
+SolidCraft supports sketching, constraints, editable feature history, part modeling, and file exchange. Consult the maintained documentation for supported commands, formats, installation requirements, and limitations. GitHub Releases is the source for current release versions, packages, and compatibility notes.
+
+SolidCore is a separate geometry-kernel project under development. Its progress reports track the Rust port of NVIDIA's SMLib and comparisons with the upstream C++ implementation; use those reports and the repository for current status.
+
+## Documentation
+
+- [SolidCraft documentation](https://docs.solidcraft.io/): User guides, installation instructions, and developer documentation.
+- [Getting started](https://docs.solidcraft.io/guide/getting-started.html): Installation and first steps.
+- [Sketching](https://docs.solidcraft.io/guide/sketching.html): Sketches and constraints.
+- [File exchange](https://docs.solidcraft.io/guide/files.html): File handling and supported import and export workflows.
+- [MCP guide](https://docs.solidcraft.io/guide/mcp.html): CLI and local MCP setup.
+- [Command reference](https://docs.solidcraft.io/reference/commands.html): Modeling commands and their parameters.
+- [Contributing](https://docs.solidcraft.io/dev/contributing.html): Building and contributing to SolidCraft.
+
+## Product
+
+- [SolidCraft](https://solidcraft.io/): Project overview.
+- [Features](https://solidcraft.io/features/): Modeling tools and workflows.
+- [Downloads](https://solidcraft.io/download/): Desktop packages for Windows, macOS, Linux, and FreeBSD.
+- [Browser app](https://solidcraft.io/app): Stable entry point for using SolidCraft in a browser.
+- [MCP and AI agents](https://solidcraft.io/mcp/): Overview of local agent workflows, setup, and permissions.
+
+## Source and releases
+
+- [SolidCraft source](https://github.com/tangency-labs/solidcraft): Application source, issues, and contribution information.
+- [SolidCraft releases](https://github.com/tangency-labs/solidcraft/releases): Current downloads and upstream release notes.
+- [SolidCore source](https://github.com/tangency-labs/solidcore): Geometry-kernel source and development status.
+- [SolidCore progress](https://tangency-labs.github.io/solidcore/): Live port status, comparison results, upstream issues, and surface-intersection reports.
+- [Website source](https://github.com/tangency-labs/website): Source for this website.
+
+## Optional
+
+- [Showcase](https://solidcraft.io/showcase/): Example models and modeling demonstrations.
+- [Licenses and attribution](https://solidcraft.io/licenses/): Website, application, media, and dependency notices.
+- [Privacy](https://solidcraft.io/privacy/): Website data handling and external services.
+- [Sitemap](https://solidcraft.io/sitemap-index.xml): Public website page inventory.

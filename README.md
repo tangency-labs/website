@@ -141,6 +141,8 @@ The header’s `/discord` link uses a temporary redirect to `discordInvite` in `
 
 Search crawlers are allowed across the site. `robots.txt` publishes the sitemap, page metadata allows indexing and following links, and response headers do not block indexing.
 
+`/llms.txt` provides a concise project overview and links to the maintained documentation, application, downloads, and source repositories. Keep `public/llms.txt` aligned with public destinations and avoid embedding release versions or progress figures that can become stale.
+
 ## License
 
 Website code is licensed under [MIT](LICENSE). Product media, branding, fonts, and dependencies retain their respective licenses. Attribution and license files are included in [`public/notices/`](apps/frontend/solidcraft-landing/public/notices/), with source revisions and media hashes recorded in `src/data/`.
