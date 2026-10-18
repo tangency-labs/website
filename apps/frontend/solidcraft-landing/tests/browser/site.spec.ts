@@ -30,6 +30,11 @@ for (const route of [
 		});
 		const response = await page.goto(route);
 		expect(response?.status(), route).toBe(200);
+		expect(response?.headers()["x-robots-tag"], route).toBeUndefined();
+		await expect(page.locator('meta[name="robots"]'), route).toHaveAttribute(
+			"content",
+			"index, follow",
+		);
 		await expect(page.locator("h1"), route).toHaveCount(1);
 		if (route.startsWith("/solidcore/progress/"))
 			await expect(page.locator(".progress-provenance")).toBeVisible();
@@ -320,12 +325,12 @@ test("progress report keeps unit details, source links, and working filters", as
 	await expect(page.locator("h1")).toHaveText("SSI corpus");
 });
 
-test("missing route returns an actual 404 and preview policies are enforced", async ({
+test("missing route returns an actual 404 and security headers are enforced", async ({
 	page,
 }) => {
 	const response = await page.goto("/this-page-does-not-exist/");
 	expect(response?.status()).toBe(404);
-	expect(response?.headers()["x-robots-tag"]).toBe("noindex, nofollow");
+	expect(response?.headers()["x-robots-tag"]).toBeUndefined();
 	expect(response?.headers()["content-security-policy"]).toContain(
 		"object-src 'none'",
 	);

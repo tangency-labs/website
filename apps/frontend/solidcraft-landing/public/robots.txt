@@ -1,4 +1,4 @@
 User-agent: *
-Disallow: /
+Allow: /
 
-# Review build. Remove this restriction only during the production launch review.
+Sitemap: https://solidcraft.io/sitemap-index.xml

@@ -139,7 +139,7 @@ The application-level `.node-version` pins the build runtime. Any hosting `NODE_
 
 The header’s `/discord` link uses a temporary redirect to `discordInvite` in `src/data/site.ts`. Change that invite and rebuild when the community invite changes; the shared website URL stays the same.
 
-Search indexing is currently disabled through page metadata, response headers, and `robots.txt`.
+Search crawlers are allowed across the site. `robots.txt` publishes the sitemap, page metadata allows indexing and following links, and response headers do not block indexing.
 
 ## License
 

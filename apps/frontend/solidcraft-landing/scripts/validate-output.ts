@@ -28,14 +28,25 @@ for (const route of [...routes, ...progressPages.map((page) => page.path)]) {
 	if ((html.match(/<h1(?:\s|>)/g) || []).length !== 1)
 		throw new Error(`Expected one h1: ${route}`);
 	if (
-		!html.includes("noindex, nofollow") ||
+		!html.includes('content="index, follow" name="robots"') ||
 		!html.includes(`href="https://solidcraft.io${route}"`)
 	)
-		throw new Error(`Missing canonical or preview noindex: ${route}`);
+		throw new Error(`Missing canonical or indexing metadata: ${route}`);
 	if (!html.includes("/disclaimer/") || !html.includes("/privacy/"))
 		throw new Error(`Missing legal navigation: ${route}`);
 }
 await stat("dist/404.html");
+const robots = await readFile("dist/robots.txt", "utf8");
+if (
+	!/^User-agent: \*$/m.test(robots) ||
+	!/^Allow: \/$/m.test(robots) ||
+	/^Disallow:\s*\S/m.test(robots) ||
+	!robots.includes("Sitemap: https://solidcraft.io/sitemap-index.xml")
+)
+	throw new Error(
+		"Expected unrestricted crawling and the public sitemap in robots.txt.",
+	);
+await stat("dist/sitemap-index.xml");
 const inlineScriptHashes = new Set<string>();
 let links = 0;
 for (const file of files.filter((file) => file.endsWith(".html"))) {
@@ -79,10 +90,10 @@ for (const file of files.filter((file) => file.endsWith(".html"))) {
 const csp = `default-src 'self'; script-src 'self' ${[...inlineScriptHashes].sort().join(" ")}; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; media-src 'self'; connect-src 'self' https://api.github.com https://tangency-labs.github.io; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'`;
 await writeFile(
 	"dist/_headers",
-	`/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n  X-Frame-Options: DENY\n  Permissions-Policy: camera=(), microphone=(), geolocation=()\n  X-Robots-Tag: noindex, nofollow\n  Content-Security-Policy: ${csp}\n\n/_astro/*\n  Cache-Control: public, max-age=31536000, immutable\n`,
+	`/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n  X-Frame-Options: DENY\n  Permissions-Policy: camera=(), microphone=(), geolocation=()\n  Content-Security-Policy: ${csp}\n\n/_astro/*\n  Cache-Control: public, max-age=31536000, immutable\n`,
 );
 console.log(
-	`Static output valid: ${files.length} files, ${links} local references, ${inlineScriptHashes.size} CSP script hashes. Preview indexing disabled.`,
+	`Static output valid: ${files.length} files, ${links} local references, ${inlineScriptHashes.size} CSP script hashes. Crawling and indexing allowed.`,
 );
 
 await writeFile(
