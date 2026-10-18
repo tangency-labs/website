@@ -85,10 +85,11 @@ console.log(
 	`Static output valid: ${files.length} files, ${links} local references, ${inlineScriptHashes.size} CSP script hashes. Preview indexing disabled.`,
 );
 
+const discordPath = new URL(site.discord).pathname;
 await writeFile(
 	"dist/_redirects",
 	(await readFile("public/_redirects", "utf8")) +
-		`${site.discord} ${site.discordInvite} 302\n${site.discord}/ ${site.discordInvite} 302\n` +
+		`${discordPath} ${site.discordInvite} 302\n${discordPath}/ ${site.discordInvite} 302\n` +
 		progressRedirects
 			.map((redirect) => `${redirect.from} ${redirect.to} 301`)
 			.join("\n") +

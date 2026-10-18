@@ -176,7 +176,7 @@ test("Discord, migrated destinations and footer remain available on desktop and 
 		page
 			.getByRole("navigation", { name: "Main navigation" })
 			.getByRole("link", { name: "Discord" }),
-	).toHaveAttribute("href", "https://discord.gg/FtU4NQNVDH");
+	).toHaveAttribute("href", "https://solidcraft.io/discord");
 	for (const path of ["/discord", "/discord/"]) {
 		const response = await request.get(path, { maxRedirects: 0 });
 		expect(response.status()).toBe(302);
@@ -196,6 +196,9 @@ test("Discord, migrated destinations and footer remain available on desktop and 
 	await expect(
 		page.locator(".mobile-menu").getByRole("link", { name: "Discord" }),
 	).toBeVisible();
+	await expect(
+		page.locator(".mobile-menu").getByRole("link", { name: "Discord" }),
+	).toHaveAttribute("href", "https://solidcraft.io/discord");
 	await expect(
 		page.locator(".mobile-menu").getByRole("link", { name: "GitHub" }),
 	).toHaveAttribute("href", "https://github.com/tangency-labs/solidcraft");

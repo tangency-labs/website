@@ -2,7 +2,7 @@ export const site = {
 	name: "SolidCraft",
 	url: "https://solidcraft.io",
 	app: "https://solidcraft.io/app",
-	discord: "/discord",
+	discord: "https://solidcraft.io/discord",
 	discordInvite: "https://discord.gg/FtU4NQNVDH",
 	docs: "https://docs.solidcraft.io/",
 	repo: "https://github.com/tangency-labs/solidcraft",
@@ -18,7 +18,7 @@ export const nav = [
 	{ label: "SolidCore", href: "/solidcore/" },
 	{ label: "Docs", href: site.docs },
 	{ label: "GitHub", href: site.repo },
-	{ label: "Discord", href: site.discordInvite },
+	{ label: "Discord", href: site.discord },
 ];
 export const routes = [
 	"/",

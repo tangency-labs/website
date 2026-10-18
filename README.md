@@ -137,7 +137,7 @@ The output is `apps/frontend/solidcraft-landing/dist/`. Preview runs at [localho
 
 The application-level `.node-version` pins the build runtime. Any hosting `NODE_VERSION` override must match it. Deploy the generated `_headers` and `_redirects` with the rest of the output.
 
-The header’s `/discord` link uses a temporary redirect to `discordInvite` in `src/data/site.ts`. Change that invite and rebuild when the community invite changes; the shared website URL stays the same.
+All Discord links use `https://solidcraft.io/discord`, which temporarily redirects to `discordInvite` in `src/data/site.ts`. Change that invite and rebuild when the community invite changes; the shared website URL stays the same.
 
 Search indexing is currently disabled through page metadata, response headers, and `robots.txt`.
 
