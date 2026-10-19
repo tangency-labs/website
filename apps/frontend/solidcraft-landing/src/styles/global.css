@@ -746,6 +746,26 @@ code {
 	color: var(--ink);
 	text-decoration: underline;
 }
+.footer-grid .footer-brand .ci-credit {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin-top: 16px;
+	padding-block: 6px;
+	color: var(--subtle);
+	font-size: 11px;
+	text-decoration: none;
+}
+.ci-credit img {
+	width: 110px;
+	height: auto;
+	opacity: 0.7;
+	transition: opacity 160ms ease;
+}
+.ci-credit:hover img,
+.ci-credit:focus-visible img {
+	opacity: 1;
+}
 .footer-bottom {
 	border-top: 1px solid var(--line);
 	display: flex;

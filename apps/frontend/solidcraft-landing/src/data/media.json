@@ -99,6 +99,24 @@
 			"license": "MIT OR Apache-2.0",
 			"creator": "SolidCraft contributors",
 			"transformation": "unchanged upstream asset"
+		},
+		{
+			"path": "/brand/blacksmith-ci.png",
+			"bytes": 4088,
+			"sha256": "49a75c8228572b81f422527b4d5245030120d24169a9b62f3df69b90b67a7966",
+			"source": "user-supplied Blacksmith CI reference badge",
+			"license": "Blacksmith brand asset; trademark rights retained by Blacksmith",
+			"creator": "Blacksmith",
+			"transformation": "unchanged supplied reference image"
+		},
+		{
+			"path": "/brand/blacksmith-ci.svg",
+			"bytes": 2029,
+			"sha256": "7ce71471136e61217bfd7860f810ca0cbc84d2f09dfd25b336eed5d410606f77",
+			"source": "https://www.blacksmith.sh/",
+			"license": "Blacksmith brand asset; trademark rights retained by Blacksmith",
+			"creator": "Blacksmith",
+			"transformation": "Combined official icon and stacked wordmark paths; normalized height and white fill; transparent background"
 		}
 	]
 }

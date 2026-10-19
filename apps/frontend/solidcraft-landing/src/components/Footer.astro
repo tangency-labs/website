@@ -11,6 +11,17 @@ import { guide, site } from "../data/site";
 			</a>
 			<p>Parametric CAD for desktop<br>and browser.</p>
 			<span class="mono small">© Tangency Labs</span>
+			{Astro.url.pathname === "/" && (
+				<a class="ci-credit" href="https://www.blacksmith.sh/">
+					<span>CI powered by</span>
+					<img
+						alt="Blacksmith"
+						height="26"
+						src="/brand/blacksmith-ci.svg"
+						width="110"
+					>
+				</a>
+			)}
 		</div>
 		<div>
 			<h2>Product</h2>
