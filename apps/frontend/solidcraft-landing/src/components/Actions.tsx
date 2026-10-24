@@ -1,4 +1,4 @@
-import { AppWindow, Download } from "lucide-react";
+import { Download, Globe } from "lucide-react";
 import { useEffect, useState } from "react";
 import { site } from "../data/site";
 import { detectPlatform, type Platform } from "../lib/download-utils";
@@ -37,7 +37,7 @@ export default function Actions({
 				)}
 			</div>
 			<a className="button secondary" href={site.app}>
-				<AppWindow aria-hidden="true" size={18} strokeWidth={1.5} />
+				<Globe aria-hidden="true" size={18} strokeWidth={1.5} />
 				Try in your browser
 			</a>
 		</div>
