@@ -70,7 +70,7 @@ test("interior pages reflow on mobile, and font failure preserves usable content
 	await page.emulateMedia({ reducedMotion: "reduce" });
 	await page.goto("/");
 	await expect(page.locator(".hero h1")).toBeVisible();
-	await expect(page.locator(".hero .actions a")).toHaveCount(2);
+	await expect(page.locator(".hero .actions a")).toHaveCount(3);
 	expect(
 		await page.evaluate(
 			() => document.documentElement.scrollWidth <= window.innerWidth,
@@ -87,7 +87,10 @@ test("hero actions stay visible and layouts reflow at representative widths", as
 		const actions = page.locator(".hero .actions");
 		await expect(
 			actions.getByRole("link", { name: /Download (for .+|SolidCraft)/ }),
-		).toHaveAttribute("href", /^\/download\/$|\/releases\/download\//);
+		).toHaveAttribute(
+			"href",
+			"https://github.com/tangency-labs/solidcraft#download",
+		);
 		await expect(
 			actions.getByRole("link", { name: "Try in your browser" }),
 		).toHaveAttribute("href", site.app);
@@ -343,66 +346,20 @@ test("missing route returns an actual 404 and security headers are enforced", as
 	await expect(page).toHaveURL("/");
 });
 
-for (const system of [
-	{
-		name: "Windows x64",
-		platform: "Win32",
-		agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
-		href: /releases\/download\/v0\.13\.0\/solidcraft-0\.13\.0-windows-x64\.msi$/,
-	},
-	{
-		name: "macOS",
-		platform: "MacIntel",
-		agent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)",
-		href: /releases\/download\/v0\.13\.0\/solidcraft-0\.13\.0-macos-universal\.dmg$/,
-	},
-	{
-		name: "Linux x86_64",
-		platform: "Linux x86_64",
-		agent: "Mozilla/5.0 (X11; Linux x86_64)",
-		href: /releases\/download\/v0\.13\.0\/solidcraft-0\.13\.0-linux-x86_64\.AppImage$/,
-	},
-	{
-		name: "Windows ARM64",
-		platform: "Win32",
-		agent: "Mozilla/5.0 (Windows NT 10.0; ARM64)",
-		href: /^\/download\/$/,
-	},
-]) {
-	test(`home button links straight to the latest release file: ${system.name}`, async ({
-		page,
-	}) => {
-		await page.addInitScript(
-			({ platform, agent }) => {
-				Object.defineProperty(navigator, "platform", { value: platform });
-				Object.defineProperty(navigator, "userAgent", { value: agent });
-				Object.defineProperty(navigator, "maxTouchPoints", { value: 0 });
-				// Client hints would report this runner's real CPU.
-				Object.defineProperty(navigator, "userAgentData", { value: undefined });
-			},
-			{ platform: system.platform, agent: system.agent },
-		);
-		await page.route(endpoint, (route) =>
-			route.fulfill({ json: githubRelease("v0.13.0") }),
-		);
-		const downloads: string[] = [];
-		page.on("download", (download) => downloads.push(download.url()));
-		await page.goto("/");
-		await expect(
-			page.locator(".hero .actions a.button.primary"),
-		).toHaveAttribute("href", system.href);
-		// Only a click may download: nothing starts by itself.
-		expect(downloads).toEqual([]);
-	});
-}
-
-test("home button stays on /download/ when the latest release can't be loaded", async ({
+test("home Download button links to the README download section, never a file", async ({
 	page,
 }) => {
-	await page.route(endpoint, (route) => route.fulfill({ status: 403 }));
+	const downloads: string[] = [];
+	page.on("download", (download) => downloads.push(download.url()));
 	await page.goto("/");
-	await expect(page.locator(".hero .actions a.button.primary")).toHaveAttribute(
+	const actions = page.locator(".hero .actions");
+	await expect(actions.locator("a.button.primary")).toHaveAttribute(
 		"href",
-		"/download/",
+		"https://github.com/tangency-labs/solidcraft#download",
 	);
+	await expect(
+		actions.getByRole("link", { name: "Other downloads and platforms" }),
+	).toHaveAttribute("href", "/download/");
+	await expect(page.locator('a[href*="/releases/download/"]')).toHaveCount(0);
+	expect(downloads).toEqual([]);
 });
