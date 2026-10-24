@@ -377,6 +377,8 @@ for (const system of [
 				Object.defineProperty(navigator, "platform", { value: platform });
 				Object.defineProperty(navigator, "userAgent", { value: agent });
 				Object.defineProperty(navigator, "maxTouchPoints", { value: 0 });
+				// Client hints would report this runner's real CPU.
+				Object.defineProperty(navigator, "userAgentData", { value: undefined });
 			},
 			{ platform: system.platform, agent: system.agent },
 		);
