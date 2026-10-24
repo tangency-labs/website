@@ -32,7 +32,7 @@ export default function Actions({
 				</a>
 				{github && (
 					<a className="small other-downloads" href="/download/">
-						Other downloads and platforms
+						Other downloads
 					</a>
 				)}
 			</div>
