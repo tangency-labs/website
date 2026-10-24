@@ -1,76 +1,90 @@
 ---
-import { guide } from "../data/site";
+import { guide, site } from "../data/site";
 import ArticleLayout from "../layouts/ArticleLayout.astro";
 ---
 
 <ArticleLayout
-	description="How this static website works, and what changes when you follow a link to the app, GitHub, or an external AI client."
+	description="What the SolidCraft desktop app, browser app, agent chat, and this website send over the network, and what stays on your computer."
 	eyebrow="PROJECT / PRIVACY"
 	title="Privacy"
 >
+	<p>Effective October 24, 2026.</p>
+	<h2>Desktop app</h2>
+	<p>
+		SolidCraft has no telemetry, no accounts, and no usage reporting. Your
+		designs stay on your computer unless you share them yourself.
+	</p>
+	<p>
+		The one network request SolidCraft makes on its own is the update check. At
+		startup, and again once a day while it stays open, it asks the GitHub API
+		for the latest SolidCraft release. The request carries a fixed User-Agent
+		and nothing else: no version number, no machine or user identifier, no usage
+		data, and no cookies. GitHub sees it like any other visit to its API,
+		including your IP address and the time. If you choose{" "}
+		<strong>Update now</strong>, SolidCraft downloads the release files from
+		GitHub releases. Turn the check off under Preferences, or set{" "}
+		<code>SOLIDCRAFT_UPDATE_CHECK=0</code>. Builds you compile yourself, the
+		Flatpak, and the browser app never check. Details are in{" "}
+		<a href={guide("updates")}>updates and privacy</a>.
+	</p>
+	<p>
+		Crash reports are written to a folder on your computer. SolidCraft does not
+		send them anywhere. <strong>Report a bug</strong> lets you review a
+		screenshot and opens a draft GitHub issue in your browser; nothing is
+		published until you submit it yourself.
+	</p>
+	<h2>Agent chat</h2>
+	<p>
+		Agent chat is optional and exists only in the desktop app. It talks to the
+		coding agent you run on your computer, or to the OpenAI-compatible endpoint
+		you configure (a local one such as Ollama or LM Studio, or a URL you
+		choose). Your prompts, any files you attach, and what the agent reads from
+		your design go only to that agent or endpoint. SolidCraft does not proxy or
+		provide a model and does not send them anywhere else. What an agent sends on
+		to its own service is governed by that service&rsquo;s terms. An
+		endpoint&rsquo;s key is kept in your system keychain and sent only to that
+		endpoint.
+	</p>
+	<h2>Browser app</h2>
+	<p>
+		The browser app runs in your browser. Designs stay in the browser&rsquo;s
+		private storage or in files you choose to open and save; SolidCraft does not
+		upload them. The app keeps a copy of itself in your browser so it works
+		offline, and checks for a newer build from the site that serves it. Clearing
+		the site&rsquo;s data can remove designs kept in browser storage, so
+		download a copy of anything you want to keep. See the{" "}
+		<a href={guide("files")}>file guide</a>.
+	</p>
 	<h2>This website</h2>
 	<p>
-		The marketing website serves static pages and assets. This implementation
-		has no accounts, email signup, hosted model storage, or AI chat service. It
-		adds no analytics beacons, advertising pixels, fingerprinting, or session
-		replay.
+		The site has no accounts, forms, advertising, or analytics scripts, and it
+		sets no cookies. Fonts, images, and videos are served from the site itself.
 	</p>
 	<p>
-		Fonts, images, and demonstration videos are served from the same site. The
-		download selector keeps its current selections in page memory; it does not
-		save them to cookies or browser storage. Copy buttons use the browser
-		clipboard only after you activate them.
-	</p>
-	<h2>Hosting & operator</h2>
-	<p>
-		This is a local review build. Production hosting, the responsible operator,
-		contact details, and any hosting log-retention settings have not yet been
-		configured. A production privacy notice must describe those actual
-		arrangements before public launch.
+		solidcraft.io is served through Cloudflare. Like any host, Cloudflare
+		processes ordinary request information such as your IP address and request
+		headers, and may keep logs or aggregate traffic statistics under its own{" "}
+		<a href="https://www.cloudflare.com/privacypolicy/">privacy policy</a>.
 	</p>
 	<p>
-		A web host can process ordinary request information such as IP addresses and
-		request headers. The absence of analytics scripts is not a claim that a
-		hosting provider processes no data.
-	</p>
-	<h2>Downloads & external links</h2>
-	<p>
-		SolidCore progress pages fetch public reports from tangency-labs.github.io
-		directly in your browser, without credentials or local storage. Failed
-		requests show an error; no saved progress report is displayed. The homepage,
-		download page, and release page request public release metadata from
-		api.github.com. GitHub receives your IP address and ordinary request
-		headers. No account token or credentials are sent. Validated public release
-		metadata is cached in local browser storage for five minutes to reduce
-		requests; the site still works when storage or GitHub is unavailable.
-		Software downloads link directly to GitHub release assets. Documentation and
-		browser buttons open the existing upstream project sites. Those services
-		process requests under their own policies. This marketing website does not
-		proxy downloads or add tracking parameters.
-	</p>
-	<h2>The browser application</h2>
-	<p>
-		SolidCraft’s browser app is a separate application at a separate origin. Its
-		saved documents and recovery behavior are described in the{" "}<a
-			href={guide("files")}
+		The home, download, and releases pages ask api.github.com for public release
+		information directly from your browser, with no credentials. GitHub receives
+		your IP address and ordinary request headers. The result is kept in your
+		browser&rsquo;s local storage for five minutes, and the pages work if
+		storage or GitHub is unavailable. SolidCore progress pages likewise fetch
+		public reports from tangency-labs.github.io. Download links go straight to
+		GitHub release files, and this site adds no tracking parameters. GitHub
+		handles those requests under its{" "}
+		<a
+			href="https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement"
 		>
-			file guide
-		</a>{" "}
-		and{" "}
-		<a href={guide("updates")}>updates and privacy guide</a>. Keep exported
-		backups of important designs.
+			privacy statement
+		</a
+		>.
 	</p>
-	<h2>AI clients & providers</h2>
+	<h2>Contact</h2>
 	<p>
-		The website does not connect to your local MCP server or accept AI
-		credentials. If you configure a compatible AI client separately, that client
-		and its provider determine how prompts, tool results, screenshots, and other
-		information are handled. Review their settings and policies.
-	</p>
-	<h2>Future changes</h2>
-	<p>
-		Production deployment details must be reviewed before launch. Any later
-		analytics, forms, storage, or hosted integrations require an updated
-		description of what they do.
+		Questions or corrections: open an issue at{" "}
+		<a href={`${site.repo}/issues`}>tangency-labs/solidcraft</a>.
 	</p>
 </ArticleLayout>
