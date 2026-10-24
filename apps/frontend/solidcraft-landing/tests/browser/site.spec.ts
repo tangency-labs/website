@@ -358,7 +358,7 @@ test("home Download button links to the README download section, never a file", 
 		"https://github.com/tangency-labs/solidcraft#download",
 	);
 	await expect(
-		actions.getByRole("link", { name: "Other downloads and platforms" }),
+		actions.getByRole("link", { name: "Other downloads" }),
 	).toHaveAttribute("href", "/download/");
 	await expect(page.locator('a[href*="/releases/download/"]')).toHaveCount(0);
 	expect(downloads).toEqual([]);
