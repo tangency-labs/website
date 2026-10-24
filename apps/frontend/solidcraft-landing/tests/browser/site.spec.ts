@@ -144,14 +144,14 @@ test("download filters select correct architecture, show empty state, and reset"
 	await expect(page.locator(".package")).toHaveCount(1);
 	await expect(page.locator(".package .button")).toHaveAttribute(
 		"href",
-		/releases\/tag\/v0\.12\.0$/,
+		/releases\/latest$/,
 	);
 	await expect(page.locator("[data-platform-download] a")).toHaveText(
 		"Get SolidCraft for Linux",
 	);
 	await expect(page.locator("[data-platform-download] a")).toHaveAttribute(
 		"href",
-		/releases\/tag\/v0\.12\.0$/,
+		/releases\/latest$/,
 	);
 	await page.getByLabel("Platform", { exact: true }).selectOption("macOS");
 	await expect(
@@ -188,7 +188,7 @@ test("macOS gets the release page link while all artifacts stay visible", async 
 	);
 	await expect(page.locator("[data-platform-download] a")).toHaveAttribute(
 		"href",
-		/releases\/tag\/v0\.12\.0$/,
+		/releases\/latest$/,
 	);
 	await expect(page.locator(".package")).toHaveCount(22);
 	// Downloads start on github.com, never from a link on this site.

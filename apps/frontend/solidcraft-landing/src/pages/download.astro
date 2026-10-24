@@ -45,7 +45,7 @@ const release = snapshotSchema.parse(snapshot);
 			<a
 				data-release-checksums
 				hidden={!release.checksums}
-				href={release.checksums ? release.notes : undefined}
+				href={release.checksums ? site.latestRelease : undefined}
 			>
 				SHA-256 checksums on GitHub ↗
 			</a>
@@ -118,7 +118,7 @@ const release = snapshotSchema.parse(snapshot);
 							class="text-link"
 							data-release-checksums
 							hidden={!release.checksums}
-							href={release.checksums ? release.notes : undefined}
+							href={release.checksums ? site.latestRelease : undefined}
 						>
 							View release checksums on GitHub<Icon name="external" size={18} />
 						</a>
