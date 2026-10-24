@@ -1,4 +1,6 @@
 /app https://docs.solidcraft.io/app 302
 /app/ https://docs.solidcraft.io/app 302
-/downloads/ /download/ 301
+/downloads/ https://github.com/tangency-labs/solidcraft/releases/latest 302
 /github/ https://github.com/tangency-labs/solidcraft 302
+/download https://github.com/tangency-labs/solidcraft/releases/latest 302
+/download/ https://github.com/tangency-labs/solidcraft/releases/latest 302
