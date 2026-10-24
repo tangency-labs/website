@@ -135,8 +135,8 @@ export function recommendArtifact<T extends DownloadChoice>(
 	);
 	const preferred = [
 		"Disk image",
-		"EXE installer",
 		"MSI installer",
+		"EXE installer",
 		"AppImage",
 		"TAR archive",
 		"Portable ZIP",
