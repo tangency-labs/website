@@ -240,6 +240,19 @@ code {
 	gap: 12px;
 	align-items: center;
 }
+.primary-action {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 6px;
+}
+.other-downloads {
+	color: var(--link);
+	text-decoration: none;
+}
+.other-downloads:hover {
+	text-decoration: underline;
+}
 .button {
 	min-height: 50px;
 	display: inline-flex;

@@ -69,7 +69,7 @@ The root contains the pnpm workspace, shared lockfile, and CI workflow. Keep dep
 
 Downloads fetch the latest stable release from GitHub in the browser. Validated metadata is shared between download controls, cached for five minutes, and refreshed while the page is open. New releases appear without rebuilding. Checked-in release metadata supplies working package links when JavaScript or GitHub is unavailable.
 
-Download buttons identify the visitor’s desktop platform and link to `releases/latest` on GitHub (never to a release file or a baked-in tag), and nothing downloads automatically: the file is chosen and downloaded on github.com. The one exception is the homepage Download button, a plain link that, once the latest release has loaded from GitHub, points at that release’s asset for the visitor’s system (Windows x64 MSI, macOS DMG, Linux x86_64 AppImage; other systems go to `/download/`). Only a click downloads. Releases come from `tangency-labs/solidcraft` and require validated release URLs.
+Download buttons identify the visitor’s desktop platform and link to `releases/latest` on GitHub (never to a release file or a baked-in tag), and nothing downloads automatically: the file is chosen and downloaded on github.com. The homepage Download button is a plain link to the Download section of the SolidCraft README on GitHub, with an “Other downloads and platforms” link to `/download/`. Releases come from `tangency-labs/solidcraft` and require validated release URLs.
 
 ### SolidCore Progress
 

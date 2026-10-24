@@ -9,6 +9,7 @@ export const site = {
 	kernel: "https://github.com/tangency-labs/solidcore",
 	progress: "https://tangency-labs.github.io/solidcore/",
 	releases: "https://github.com/tangency-labs/solidcraft/releases",
+	readmeDownload: "https://github.com/tangency-labs/solidcraft#download",
 	latestRelease: "https://github.com/tangency-labs/solidcraft/releases/latest",
 } as const;
 
