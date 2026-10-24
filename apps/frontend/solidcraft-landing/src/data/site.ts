@@ -9,6 +9,7 @@ export const site = {
 	kernel: "https://github.com/tangency-labs/solidcore",
 	progress: "https://tangency-labs.github.io/solidcore/",
 	releases: "https://github.com/tangency-labs/solidcraft/releases",
+	latestRelease: "https://github.com/tangency-labs/solidcraft/releases/latest",
 } as const;
 
 export const guide = (chapter: string) => `${site.docs}guide/${chapter}.html`;

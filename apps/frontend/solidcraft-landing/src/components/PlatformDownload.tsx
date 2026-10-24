@@ -1,6 +1,7 @@
 import { Download } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useStore } from "zustand";
+import { site } from "../data/site";
 import {
 	type Architecture,
 	detectDownloadSystem,
@@ -12,7 +13,7 @@ import { useRelease } from "../lib/use-release";
 import { downloadStore } from "../stores/downloads";
 
 export default function PlatformDownload() {
-	const { artifacts, notes } = useRelease();
+	const { artifacts } = useRelease();
 	const filters = useStore(downloadStore, (state) => state.filters);
 	const [detected, setDetected] = useState<{
 		platform: Platform | null;
@@ -40,9 +41,9 @@ export default function PlatformDownload() {
 		architecture,
 		filters.kind,
 	);
-	// The file itself is never linked from this site: the release page is, so
-	// the download starts from github.com.
-	const href = notes;
+	// The file itself is never linked from this site: the latest release page
+	// is, so the download starts from github.com and no stale tag can be linked.
+	const href = site.latestRelease;
 	const description = artifact
 		? `${platform} ${artifact.architecture}: pick the ${artifact.kind} (${formatBytes(artifact.bytes)}) on the release page.`
 		: platform

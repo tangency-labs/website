@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useStore } from "zustand";
+import { site } from "../data/site";
 import {
 	architectures,
 	filterArtifacts,
@@ -93,7 +94,7 @@ export default function DownloadSelector() {
 						<a
 							aria-label={`Get ${a.platform} ${a.architecture} ${a.kind} on the GitHub release page — ${a.name}`}
 							className="button secondary"
-							href={notes}
+							href={site.latestRelease}
 						>
 							{a.kind} on GitHub <span aria-hidden="true">↗</span>
 						</a>

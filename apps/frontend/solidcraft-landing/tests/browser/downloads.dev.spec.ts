@@ -26,7 +26,7 @@ test("downloads hydrate in development and survive a concurrent production build
 	await expect(page.locator(".package")).toHaveCount(1);
 	await expect(page.locator("[data-platform-download] a")).toHaveAttribute(
 		"href",
-		/releases\/tag\/v0\.12\.0$/,
+		/releases\/latest$/,
 	);
 	await page.setViewportSize({ width: 390, height: 844 });
 	const menu = page.locator(".mobile-menu");

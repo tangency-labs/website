@@ -31,12 +31,16 @@ test("a new GitHub release updates packages, metadata, CTA and other pages witho
 	);
 	await expect(page.locator("[data-platform-download] a")).toHaveAttribute(
 		"href",
-		/releases\/tag\/v0\.13\.0$/,
+		/releases\/latest$/,
+	);
+	await expect(page.locator("[data-release-notes]").first()).toHaveAttribute(
+		"href",
+		/v0.13.0/,
 	);
 	for (const link of await page
-		.locator(".package a, [data-release-notes], [data-release-checksums]")
+		.locator(".package a, [data-release-checksums]")
 		.all()) {
-		await expect(link).toHaveAttribute("href", /v0.13.0/);
+		await expect(link).toHaveAttribute("href", /\/releases\/latest$/);
 	}
 	await page.getByLabel("Platform", { exact: true }).selectOption("Linux");
 	await page.getByLabel("Architecture", { exact: true }).selectOption("ARM64");
@@ -44,7 +48,7 @@ test("a new GitHub release updates packages, metadata, CTA and other pages witho
 	await expect(page.locator(".package")).toHaveCount(1);
 	await expect(page.locator("[data-platform-download] a")).toHaveAttribute(
 		"href",
-		/releases\/tag\/v0\.13\.0$/,
+		/releases\/latest$/,
 	);
 	await page.goto("/");
 	await expect(page.locator("[data-release-tag]").first()).toHaveText(
@@ -81,7 +85,7 @@ test("rate limits and invalid release data retain usable saved packages", async 
 	await expect(page.locator(".package")).toHaveCount(22);
 	await expect(page.locator(".package a").first()).toHaveAttribute(
 		"href",
-		/github.com\/tangency-labs\/solidcraft\/releases\/tag\/v0.12.0$/,
+		/github.com\/tangency-labs\/solidcraft\/releases\/latest$/,
 	);
 });
 
@@ -154,6 +158,6 @@ test("an open page refreshes new packages after five minutes without losing filt
 	await expect(page.locator(".package-filename")).toContainText("0.13.0");
 	await expect(page.locator("[data-platform-download] a")).toHaveAttribute(
 		"href",
-		/releases\/tag\/v0\.13\.0$/,
+		/releases\/latest$/,
 	);
 });
