@@ -36,7 +36,7 @@ export function githubRelease(tag = snapshot.tag) {
 	};
 }
 
-// Keep automatic downloads deterministic and avoid fetching actual installers in QA.
+// Avoid fetching actual installers in QA.
 export async function mockDownloadAssets(page: Page) {
 	await page.route(
 		"https://github.com/*/solidcraft/releases/download/**",

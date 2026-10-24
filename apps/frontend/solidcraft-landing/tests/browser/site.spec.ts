@@ -87,7 +87,7 @@ test("hero actions stay visible and layouts reflow at representative widths", as
 		const actions = page.locator(".hero .actions");
 		await expect(
 			actions.getByRole("link", { name: /Download (for .+|SolidCraft)/ }),
-		).toHaveAttribute("href", "/download/");
+		).toHaveAttribute("href", /^\/download\/$|\/releases\/download\//);
 		await expect(
 			actions.getByRole("link", { name: "Try in your browser" }),
 		).toHaveAttribute("href", site.app);
@@ -341,4 +341,68 @@ test("missing route returns an actual 404 and security headers are enforced", as
 	);
 	await page.getByRole("link", { name: "Back to SolidCraft" }).click();
 	await expect(page).toHaveURL("/");
+});
+
+for (const system of [
+	{
+		name: "Windows x64",
+		platform: "Win32",
+		agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+		href: /releases\/download\/v0\.13\.0\/solidcraft-0\.13\.0-windows-x64\.msi$/,
+	},
+	{
+		name: "macOS",
+		platform: "MacIntel",
+		agent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)",
+		href: /releases\/download\/v0\.13\.0\/solidcraft-0\.13\.0-macos-universal\.dmg$/,
+	},
+	{
+		name: "Linux x86_64",
+		platform: "Linux x86_64",
+		agent: "Mozilla/5.0 (X11; Linux x86_64)",
+		href: /releases\/download\/v0\.13\.0\/solidcraft-0\.13\.0-linux-x86_64\.AppImage$/,
+	},
+	{
+		name: "Windows ARM64",
+		platform: "Win32",
+		agent: "Mozilla/5.0 (Windows NT 10.0; ARM64)",
+		href: /^\/download\/$/,
+	},
+]) {
+	test(`home button links straight to the latest release file: ${system.name}`, async ({
+		page,
+	}) => {
+		await page.addInitScript(
+			({ platform, agent }) => {
+				Object.defineProperty(navigator, "platform", { value: platform });
+				Object.defineProperty(navigator, "userAgent", { value: agent });
+				Object.defineProperty(navigator, "maxTouchPoints", { value: 0 });
+				// Client hints would report this runner's real CPU.
+				Object.defineProperty(navigator, "userAgentData", { value: undefined });
+			},
+			{ platform: system.platform, agent: system.agent },
+		);
+		await page.route(endpoint, (route) =>
+			route.fulfill({ json: githubRelease("v0.13.0") }),
+		);
+		const downloads: string[] = [];
+		page.on("download", (download) => downloads.push(download.url()));
+		await page.goto("/");
+		await expect(
+			page.locator(".hero .actions a.button.primary"),
+		).toHaveAttribute("href", system.href);
+		// Only a click may download: nothing starts by itself.
+		expect(downloads).toEqual([]);
+	});
+}
+
+test("home button stays on /download/ when the latest release can't be loaded", async ({
+	page,
+}) => {
+	await page.route(endpoint, (route) => route.fulfill({ status: 403 }));
+	await page.goto("/");
+	await expect(page.locator(".hero .actions a.button.primary")).toHaveAttribute(
+		"href",
+		"/download/",
+	);
 });
