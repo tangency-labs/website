@@ -31,7 +31,7 @@ test("a new GitHub release updates packages, metadata, CTA and other pages witho
 	);
 	await expect(page.locator("[data-platform-download] a")).toHaveAttribute(
 		"href",
-		/v0.13.0.*macos-universal.dmg$/,
+		/releases\/tag\/v0\.13\.0$/,
 	);
 	for (const link of await page
 		.locator(".package a, [data-release-notes], [data-release-checksums]")
@@ -44,7 +44,7 @@ test("a new GitHub release updates packages, metadata, CTA and other pages witho
 	await expect(page.locator(".package")).toHaveCount(1);
 	await expect(page.locator("[data-platform-download] a")).toHaveAttribute(
 		"href",
-		/0.13.0-linux-aarch64.deb$/,
+		/releases\/tag\/v0\.13\.0$/,
 	);
 	await page.goto("/");
 	await expect(page.locator("[data-release-tag]").first()).toHaveText(
@@ -81,7 +81,7 @@ test("rate limits and invalid release data retain usable saved packages", async 
 	await expect(page.locator(".package")).toHaveCount(22);
 	await expect(page.locator(".package a").first()).toHaveAttribute(
 		"href",
-		/github.com\/tangency-labs\/solidcraft\/releases\/download\/v0.12.0/,
+		/github.com\/tangency-labs\/solidcraft\/releases\/tag\/v0.12.0$/,
 	);
 });
 
@@ -154,6 +154,6 @@ test("an open page refreshes new packages after five minutes without losing filt
 	await expect(page.locator(".package-filename")).toContainText("0.13.0");
 	await expect(page.locator("[data-platform-download] a")).toHaveAttribute(
 		"href",
-		/0.13.0-linux-aarch64.deb$/,
+		/releases\/tag\/v0\.13\.0$/,
 	);
 });

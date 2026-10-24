@@ -144,14 +144,14 @@ test("download filters select correct architecture, show empty state, and reset"
 	await expect(page.locator(".package")).toHaveCount(1);
 	await expect(page.locator(".package .button")).toHaveAttribute(
 		"href",
-		/v0\.12\.0\/solidcraft-0\.12\.0-linux-aarch64\.deb$/,
+		/releases\/tag\/v0\.12\.0$/,
 	);
 	await expect(page.locator("[data-platform-download] a")).toHaveText(
-		"Download for Linux",
+		"Get SolidCraft for Linux",
 	);
 	await expect(page.locator("[data-platform-download] a")).toHaveAttribute(
 		"href",
-		/linux-aarch64\.deb$/,
+		/releases\/tag\/v0\.12\.0$/,
 	);
 	await page.getByLabel("Platform", { exact: true }).selectOption("macOS");
 	await expect(
@@ -172,7 +172,7 @@ test("download filters select correct architecture, show empty state, and reset"
 	});
 });
 
-test("macOS gets a direct Universal download while all artifacts stay visible", async ({
+test("macOS gets the release page link while all artifacts stay visible", async ({
 	page,
 }) => {
 	await page.addInitScript(() => {
@@ -184,13 +184,15 @@ test("macOS gets a direct Universal download while all artifacts stay visible", 
 	});
 	await page.goto("/download/");
 	await expect(page.locator("[data-platform-download] a")).toHaveText(
-		"Download for macOS",
+		"Get SolidCraft for macOS",
 	);
 	await expect(page.locator("[data-platform-download] a")).toHaveAttribute(
 		"href",
-		/macos-universal\.dmg$/,
+		/releases\/tag\/v0\.12\.0$/,
 	);
 	await expect(page.locator(".package")).toHaveCount(22);
+	// Downloads start on github.com, never from a link on this site.
+	await expect(page.locator('a[href*="/releases/download/"]')).toHaveCount(0);
 });
 
 test("no JavaScript preserves navigation, all packages, and selectable setup commands", async ({

@@ -91,11 +91,11 @@ export default function DownloadSelector() {
 							{a.cli === "yes" ? " · CLI only" : ""}
 						</p>
 						<a
-							aria-label={`Download ${a.platform} ${a.architecture} ${a.kind} — ${a.name}`}
+							aria-label={`Get ${a.platform} ${a.architecture} ${a.kind} on the GitHub release page — ${a.name}`}
 							className="button secondary"
-							href={a.url}
+							href={notes}
 						>
-							Download {a.kind} <span aria-hidden="true">↓</span>
+							{a.kind} on GitHub <span aria-hidden="true">↗</span>
 						</a>
 						<p className="package-filename mono">{a.name}</p>
 						<details>

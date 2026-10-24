@@ -18,7 +18,7 @@ watchReleases((release, unavailable) => {
 		.querySelectorAll<HTMLAnchorElement>("[data-release-checksums]")
 		.forEach((node) => {
 			node.hidden = !release.checksums;
-			if (release.checksums) node.href = release.checksums;
+			if (release.checksums) node.href = release.notes;
 		});
 	document.querySelectorAll("[data-release-status]").forEach((node) => {
 		node.textContent = unavailable

@@ -19,8 +19,8 @@ const release = snapshotSchema.parse(snapshot);
 		<p class="eyebrow">DESKTOP DOWNLOADS</p>
 		<h1>Download SolidCraft.</h1>
 		<p class="lead">
-			Your download starts automatically when we can identify your system.
-			Choose another platform, architecture, or package below.
+			We show the package that fits your system. Downloads happen on GitHub:
+			open the release and pick the file there.
 		</p>
 		<div class="actions">
 			<PlatformDownload client:load />
@@ -45,9 +45,9 @@ const release = snapshotSchema.parse(snapshot);
 			<a
 				data-release-checksums
 				hidden={!release.checksums}
-				href={release.checksums ?? undefined}
+				href={release.checksums ? release.notes : undefined}
 			>
-				SHA-256 checksums ↗
+				SHA-256 checksums on GitHub ↗
 			</a>
 		</div>
 		{isStale(release.observedAt) && (
@@ -118,9 +118,9 @@ const release = snapshotSchema.parse(snapshot);
 							class="text-link"
 							data-release-checksums
 							hidden={!release.checksums}
-							href={release.checksums ?? undefined}
+							href={release.checksums ? release.notes : undefined}
 						>
-							View release checksums<Icon name="external" size={18} />
+							View release checksums on GitHub<Icon name="external" size={18} />
 						</a>
 					</div>
 				</div>
