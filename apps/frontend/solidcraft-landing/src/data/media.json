@@ -32,8 +32,8 @@
 		},
 		{
 			"path": "/media/enclosure-parameter.jpg",
-			"bytes": 207926,
-			"sha256": "d56efea576b44f7964891ca4e016e050c745515bc1c2b51ef0f48cb2c140c5b8",
+			"bytes": 186063,
+			"sha256": "7a0406edcb0fcb59aa9293d8ac1a773b1d9ea44d459ec3f6fcb7b5ac51e08abd",
 			"sourceRevision": "52e5bc114e74ab8b8c3127f25463af53c7c36768",
 			"source": "tangency-labs/solidcraft/examples/demo/record_ui.sh",
 			"license": "MIT OR Apache-2.0",
@@ -42,18 +42,18 @@
 		},
 		{
 			"path": "/media/enclosure-parameter.mp4",
-			"bytes": 2465585,
-			"sha256": "9aa970819275664676e0467d9256e7d4a10dda2398d7cf71482b1ee45ec2887a",
+			"bytes": 2861605,
+			"sha256": "0394cbfb3bc0d06603bce538dab71c33edd5906ea42908ab896586ab3723a77d",
 			"sourceRevision": "52e5bc114e74ab8b8c3127f25463af53c7c36768",
 			"source": "tangency-labs/solidcraft/examples/demo/record_ui.sh",
 			"license": "MIT OR Apache-2.0",
 			"creator": "SolidCraft contributors",
-			"transformation": "Excerpt of the same take from the height 24 to 32 mm Parameters step to the end, played at 4x; resized to 1600x900; H.264 CRF 20"
+			"transformation": "Excerpt of the same take from the height 24 to 32 mm Parameters step to the end, played at 4x with idle stretches cut (trim_idle.py); resized to 1600x900; H.264 CRF 21"
 		},
 		{
 			"path": "/media/enclosure-poster.jpg",
-			"bytes": 169658,
-			"sha256": "26bd7b4e0a4c1bf4a36fa0c12bb7fabc89410b8c50e01e3810642cce746074cb",
+			"bytes": 165243,
+			"sha256": "b27cd6206a9a430cdab2dc2818a51cc8e9de7e8e9438f08c9f2f0c9b5ccc16d9",
 			"sourceRevision": "52e5bc114e74ab8b8c3127f25463af53c7c36768",
 			"source": "tangency-labs/solidcraft/examples/demo/record_ui.sh",
 			"license": "MIT OR Apache-2.0",
@@ -62,18 +62,18 @@
 		},
 		{
 			"path": "/media/enclosure.mp4",
-			"bytes": 9897565,
-			"sha256": "a17d9d8057a3ba92ddcc98f4f9e811b0e3df6badfbe8e963eed8e82108cff7c4",
+			"bytes": 8179399,
+			"sha256": "15d46786a2c0f090f49d4f8cc2f580a3a4d6e8d7cdf08bd8a6818fa8a4bac163",
 			"sourceRevision": "52e5bc114e74ab8b8c3127f25463af53c7c36768",
 			"source": "tangency-labs/solidcraft/examples/demo/record_ui.sh",
 			"license": "MIT OR Apache-2.0",
 			"creator": "SolidCraft contributors",
-			"transformation": "Real-time take of examples/demo/record_ui.sh (story pi) on SolidCraft 0.22.1, 1920x1080, default dark theme; played at 6x; H.264 CRF 20"
+			"transformation": "Real-time take of examples/demo/record_ui.sh (story pi) on SolidCraft 0.22.1, 1920x1080, default dark theme; played at 6x with idle stretches cut by examples/demo/trim_idle.py; H.264 CRF 22"
 		},
 		{
 			"path": "/media/rover-poster.jpg",
-			"bytes": 233656,
-			"sha256": "f78645c98e86bc8256de93f240c68189e1ea9989d450bba988672e6116c9a68a",
+			"bytes": 248784,
+			"sha256": "e96618134b2e67e23f0bd3a2964f134103fd00cb1fd262449d8f288df11affa6",
 			"sourceRevision": "52e5bc114e74ab8b8c3127f25463af53c7c36768",
 			"source": "tangency-labs/solidcraft/examples/demo/record_rover.sh",
 			"license": "MIT OR Apache-2.0",
@@ -82,13 +82,13 @@
 		},
 		{
 			"path": "/media/rover.mp4",
-			"bytes": 8962170,
-			"sha256": "ae472460ce89a3e18fe4b3e16c780fe77a19263831c6b0395dc6e6a4d14a163a",
+			"bytes": 2766991,
+			"sha256": "f6415a032a30c95a602d824eb4949795bd773b9b71a6d4281a96f6e43feca13b",
 			"sourceRevision": "52e5bc114e74ab8b8c3127f25463af53c7c36768",
 			"source": "tangency-labs/solidcraft/examples/demo/record_rover.sh",
 			"license": "MIT OR Apache-2.0",
 			"creator": "0xlillith (model); SolidCraft contributors (recording)",
-			"transformation": "Replay of Rover-recorded.solidcraft's 3,323 timeline steps in SolidCraft 0.22.1, 1920x1080, default dark theme, played at 2x; H.264 CRF 23"
+			"transformation": "Replay of Rover-recorded.solidcraft's 3,323 timeline steps in SolidCraft 0.22.1, 1920x1080, default dark theme, constant-rate camera orbit, played at 15x with idle stretches cut by examples/demo/trim_idle.py (record_rover.sh); H.264 CRF 23"
 		},
 		{
 			"path": "/media/sample-plate.png",

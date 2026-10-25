@@ -300,7 +300,7 @@ test("videos autoplay muted inline with looping and no native controls or third-
 	);
 	expect(
 		await parameterVideo.evaluate((video: HTMLVideoElement) => video.duration),
-	).toBeCloseTo(7.966667, 1);
+	).toBeCloseTo(9.8, 1);
 	await expect(page.locator("#parameter-change-caption")).toHaveCount(1);
 	expect(external).toEqual([]);
 });
