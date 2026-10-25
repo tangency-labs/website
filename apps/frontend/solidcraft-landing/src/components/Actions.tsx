@@ -1,20 +1,41 @@
 import { Download, Globe } from "lucide-react";
 import { useEffect, useState } from "react";
 import { site } from "../data/site";
-import { detectPlatform, type Platform } from "../lib/download-utils";
+import {
+	type Architecture,
+	detectDownloadSystem,
+	homeDownload,
+	type Platform,
+} from "../lib/download-utils";
+import { useRelease } from "../lib/use-release";
 
-// `github` sends the main button to the Download section of the project README,
-// which links the files directly. It is a plain link, never a file download, so
-// nothing downloads from this site.
+// `direct` makes the main button a plain link to the installer asset for the
+// visitor's system on github.com (an attachment, so the browser downloads the
+// file and stays on this page). The system is read after render. Unknown
+// systems link to /download/. The file only downloads when the visitor clicks.
 export default function Actions({
 	compact = false,
-	github = false,
+	direct = false,
 }: {
 	compact?: boolean;
-	github?: boolean;
+	direct?: boolean;
 }) {
-	const [platform, setPlatform] = useState<Platform | null>(null);
-	useEffect(() => setPlatform(detectPlatform(navigator)), []);
+	const release = useRelease();
+	const [system, setSystem] = useState<{
+		platform: Platform | null;
+		architecture: Architecture | "";
+	} | null>(null);
+	useEffect(() => {
+		let active = true;
+		void detectDownloadSystem(navigator).then((detected) => {
+			if (active) setSystem(detected);
+		});
+		return () => {
+			active = false;
+		};
+	}, []);
+	const platform = system?.platform ?? null;
+	const artifact = direct ? homeDownload(release.artifacts, system) : null;
 	const label = compact
 		? "Download"
 		: platform
@@ -23,14 +44,11 @@ export default function Actions({
 	return (
 		<div className={`actions${compact ? " compact" : ""}`}>
 			<div className="primary-action">
-				<a
-					className="button primary"
-					href={github ? site.readmeDownload : "/download/"}
-				>
+				<a className="button primary" href={artifact?.url ?? "/download/"}>
 					<Download aria-hidden="true" size={18} strokeWidth={1.5} />
 					{label}
 				</a>
-				{github && (
+				{direct && (
 					<a className="small other-downloads" href="/download/">
 						Other downloads
 					</a>

@@ -147,3 +147,18 @@ export function recommendArtifact<T extends DownloadChoice>(
 	}
 	return candidates[0] || null;
 }
+
+// The one installer the home button links to for a detected system. Everything
+// else (mobile, FreeBSD, an unknown CPU) goes to the full list on /download/.
+// Pure link choice: nothing here starts a download.
+export function homeDownload<T extends DownloadChoice>(
+	artifacts: T[],
+	system: { platform: Platform | null; architecture: Architecture | "" } | null,
+): T | null {
+	if (
+		!system?.platform ||
+		!["Windows", "macOS", "Linux"].includes(system.platform)
+	)
+		return null;
+	return recommendArtifact(artifacts, system.platform, system.architecture);
+}

@@ -81,14 +81,13 @@ test("platform download uses the Universal macOS build and asks other systems fo
 	);
 });
 test("download destinations must match the exact repository, release, and HTTPS resource shape", () => {
-	const base =
-		"https://github.com/tangency-labs/solidcraft/releases/download/v0.12.0/";
+	const base = `https://github.com/tangency-labs/solidcraft/releases/download/${snapshot.tag}/`;
 	assert.equal(isReleaseAssetUrl(`${base}solidcraft.zip`, snapshot.tag), true);
 	for (const bad of [
 		`${base.replace("https:", "http:")}a.zip`,
 		`${base.replace("tangency-labs", "attacker")}a.zip`,
 		`${base.replace("github.com", "github.com.evil.test")}a.zip`,
-		`${base.replace("v0.12.0", "v0.11.0")}a.zip`,
+		`${base.replace(snapshot.tag, "v0.11.0")}a.zip`,
 		`${base}%2e%2e/evil`,
 		`${base}a%2fb.zip`,
 		`${base}a%5cb.zip`,
@@ -228,10 +227,9 @@ test("live normalization skips new package roles, allows missing checksum files,
 	};
 	const extra = {
 		id: 999999,
-		name: "solidcraft-0.12.0-new-platform.pkg",
+		name: `solidcraft-${snapshot.tag.slice(1)}-new-platform.pkg`,
 		size: 100,
-		browser_download_url:
-			"https://github.com/tangency-labs/solidcraft/releases/download/v0.12.0/new.pkg",
+		browser_download_url: `https://github.com/tangency-labs/solidcraft/releases/download/${snapshot.tag}/new.pkg`,
 		digest: null,
 	};
 	const release = normalizeRelease(
