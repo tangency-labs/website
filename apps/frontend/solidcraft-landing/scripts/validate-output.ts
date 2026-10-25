@@ -32,6 +32,13 @@ for (const route of [...routes, ...progressPages.map((page) => page.path)]) {
 		!html.includes(`href="https://solidcraft.io${route}"`)
 	)
 		throw new Error(`Missing canonical or indexing metadata: ${route}`);
+	if (
+		!html.includes(
+			`content="https://solidcraft.io${route}" property="og:url"`,
+		) ||
+		!html.includes('content="SolidCraft" property="og:site_name"')
+	)
+		throw new Error(`Missing og:url or og:site_name: ${route}`);
 	if (!html.includes("/disclaimer/") || !html.includes("/privacy/"))
 		throw new Error(`Missing legal navigation: ${route}`);
 }
@@ -47,6 +54,23 @@ if (
 		"Expected unrestricted crawling and the public sitemap in robots.txt.",
 	);
 await stat("dist/sitemap-index.xml");
+const sitemap = await readFile("dist/sitemap-0.xml", "utf8");
+for (const route of [...routes, ...progressPages.map((page) => page.path)])
+	if (!sitemap.includes(`<loc>https://solidcraft.io${route}</loc>`))
+		throw new Error(`Route missing from sitemap: ${route}`);
+const home = await readFile("dist/index.html", "utf8");
+if (!/<title>SolidCraft[: ·]/.test(home))
+	throw new Error("Home title must lead with SolidCraft.");
+const ld = home.match(
+	/<script type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/,
+);
+if (!ld) throw new Error("Missing home JSON-LD.");
+const graph = JSON.parse(ld[1]);
+for (const type of ["Organization", "SoftwareApplication", "WebSite"])
+	if (
+		!graph["@graph"].some((node: { "@type": string }) => node["@type"] === type)
+	)
+		throw new Error(`Missing JSON-LD ${type}.`);
 const inlineScriptHashes = new Set<string>();
 let links = 0;
 for (const file of files.filter((file) => file.endsWith(".html"))) {

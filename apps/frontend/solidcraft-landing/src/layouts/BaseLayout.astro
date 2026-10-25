@@ -45,6 +45,7 @@ const canonical = new URL(Astro.url.pathname, "https://solidcraft.io").href;
 			property="og:image:alt"
 		>
 		<meta content="summary_large_image" name="twitter:card">
+		<slot name="head" />
 	</head>
 	<body class={pageClass}>
 		<a class="skip-link" href="#main">Skip to content</a>
