@@ -52,8 +52,8 @@
 		},
 		{
 			"path": "/media/enclosure-poster.jpg",
-			"bytes": 169658,
-			"sha256": "26bd7b4e0a4c1bf4a36fa0c12bb7fabc89410b8c50e01e3810642cce746074cb",
+			"bytes": 168766,
+			"sha256": "f618ab7a9c0f82af986a86af222f5d820c12647481d77e8954be1124783990b5",
 			"sourceRevision": "52e5bc114e74ab8b8c3127f25463af53c7c36768",
 			"source": "tangency-labs/solidcraft/examples/demo/record_ui.sh",
 			"license": "MIT OR Apache-2.0",
@@ -62,13 +62,13 @@
 		},
 		{
 			"path": "/media/enclosure.mp4",
-			"bytes": 9897565,
-			"sha256": "a17d9d8057a3ba92ddcc98f4f9e811b0e3df6badfbe8e963eed8e82108cff7c4",
+			"bytes": 7322071,
+			"sha256": "671127601344a623d80f56cc2aae215c25a68b3479566b96f3710c725af1cbba",
 			"sourceRevision": "52e5bc114e74ab8b8c3127f25463af53c7c36768",
 			"source": "tangency-labs/solidcraft/examples/demo/record_ui.sh",
 			"license": "MIT OR Apache-2.0",
 			"creator": "SolidCraft contributors",
-			"transformation": "Real-time take of examples/demo/record_ui.sh (story pi) on SolidCraft 0.22.1, 1920x1080, default dark theme; played at 6x; H.264 CRF 20"
+			"transformation": "Real-time take of examples/demo/record_ui.sh (story pi) on SolidCraft 0.22.1, 1920x1080, default dark theme; played at 9x; H.264 CRF 20"
 		},
 		{
 			"path": "/media/rover-poster.jpg",
