@@ -87,10 +87,7 @@ test("hero actions stay visible and layouts reflow at representative widths", as
 		const actions = page.locator(".hero .actions");
 		await expect(
 			actions.getByRole("link", { name: /Download (for .+|SolidCraft)/ }),
-		).toHaveAttribute(
-			"href",
-			"https://github.com/tangency-labs/solidcraft#download",
-		);
+		).toHaveAttribute("href", /^\/download\/$|\/releases\/download\//);
 		await expect(
 			actions.getByRole("link", { name: "Try in your browser" }),
 		).toHaveAttribute("href", site.app);
@@ -147,14 +144,14 @@ test("download filters select correct architecture, show empty state, and reset"
 	await expect(page.locator(".package")).toHaveCount(1);
 	await expect(page.locator(".package .button")).toHaveAttribute(
 		"href",
-		/releases\/latest$/,
+		/releases\/download\/v0\.22\.0\/solidcraft-0\.22\.0-linux-aarch64\.deb$/,
 	);
 	await expect(page.locator("[data-platform-download] a")).toHaveText(
-		"Get SolidCraft for Linux",
+		"Download SolidCraft for Linux",
 	);
 	await expect(page.locator("[data-platform-download] a")).toHaveAttribute(
 		"href",
-		/releases\/latest$/,
+		/releases\/download\/v0\.22\.0\//,
 	);
 	await page.getByLabel("Platform", { exact: true }).selectOption("macOS");
 	await expect(
@@ -175,7 +172,7 @@ test("download filters select correct architecture, show empty state, and reset"
 	});
 });
 
-test("macOS gets the release page link while all artifacts stay visible", async ({
+test("macOS gets the disk image link while all artifacts stay visible", async ({
 	page,
 }) => {
 	await page.addInitScript(() => {
@@ -187,15 +184,13 @@ test("macOS gets the release page link while all artifacts stay visible", async 
 	});
 	await page.goto("/download/");
 	await expect(page.locator("[data-platform-download] a")).toHaveText(
-		"Get SolidCraft for macOS",
+		"Download SolidCraft for macOS",
 	);
 	await expect(page.locator("[data-platform-download] a")).toHaveAttribute(
 		"href",
-		/releases\/latest$/,
+		/releases\/download\/v0\.22\.0\/solidcraft-0\.22\.0-macos-universal\.dmg$/,
 	);
 	await expect(page.locator(".package")).toHaveCount(22);
-	// Downloads start on github.com, never from a link on this site.
-	await expect(page.locator('a[href*="/releases/download/"]')).toHaveCount(0);
 });
 
 test("no JavaScript preserves navigation, all packages, and selectable setup commands", async ({
@@ -346,20 +341,166 @@ test("missing route returns an actual 404 and security headers are enforced", as
 	await expect(page).toHaveURL("/");
 });
 
-test("home Download button links to the README download section, never a file", async ({
+const systems = [
+	{
+		name: "Windows x64",
+		platform: "Win32",
+		agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+		href: /releases\/download\/v0\.22\.0\/SolidCraft-0\.22\.0-windows-x64\.exe$/,
+	},
+	{
+		name: "macOS",
+		platform: "MacIntel",
+		agent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)",
+		href: /releases\/download\/v0\.22\.0\/solidcraft-0\.22\.0-macos-universal\.dmg$/,
+	},
+	{
+		name: "Linux x86_64",
+		platform: "Linux x86_64",
+		agent: "Mozilla/5.0 (X11; Linux x86_64)",
+		href: /releases\/download\/v0\.22\.0\/solidcraft-0\.22\.0-linux-x86_64\.AppImage$/,
+	},
+];
+
+async function spoof(
+	page: import("@playwright/test").Page,
+	platform: string,
+	agent: string,
+	touch = 0,
+) {
+	await page.addInitScript(
+		({ platform, agent, touch }) => {
+			Object.defineProperty(navigator, "platform", { value: platform });
+			Object.defineProperty(navigator, "userAgent", { value: agent });
+			Object.defineProperty(navigator, "maxTouchPoints", { value: touch });
+			// Client hints would report this runner's real CPU.
+			Object.defineProperty(navigator, "userAgentData", { value: undefined });
+		},
+		{ platform, agent, touch },
+	);
+}
+
+for (const system of systems) {
+	test(`home button is a plain link to the installer and clicking it stays on the page: ${system.name}`, async ({
+		page,
+	}) => {
+		await spoof(page, system.platform, system.agent);
+		const downloads: string[] = [];
+		const assetRequests: string[] = [];
+		const navigations: string[] = [];
+		page.on("download", (download) => downloads.push(download.url()));
+		page.on("request", (request) => {
+			if (request.url().includes("/releases/download/"))
+				assetRequests.push(request.url());
+		});
+		page.on("framenavigated", (frame) => {
+			if (frame === page.mainFrame()) navigations.push(frame.url());
+		});
+		await page.goto("/");
+		const button = page.locator(".hero .actions a.button.primary");
+		await expect(button).toHaveAttribute("href", system.href);
+		await expect(
+			page.locator(".hero .actions").getByRole("link", {
+				name: "Other downloads",
+			}),
+		).toHaveAttribute("href", "/download/");
+		// Loading the page never touches an asset or starts a download.
+		expect(assetRequests).toEqual([]);
+		expect(downloads).toEqual([]);
+		// A click serves the asset (mocked here, as an attachment) and the
+		// visitor stays on the same page.
+		const before = page.url();
+		await button.click();
+		await page.waitForTimeout(500);
+		expect(page.url()).toBe(before);
+		expect(navigations.every((url) => url === before)).toBe(true);
+		expect(assetRequests).toHaveLength(1);
+	});
+}
+
+test("home button goes to /download/ when the system is unknown", async ({
 	page,
 }) => {
-	const downloads: string[] = [];
-	page.on("download", (download) => downloads.push(download.url()));
-	await page.goto("/");
-	const actions = page.locator(".hero .actions");
-	await expect(actions.locator("a.button.primary")).toHaveAttribute(
-		"href",
-		"https://github.com/tangency-labs/solidcraft#download",
+	await spoof(
+		page,
+		"Linux armv8l",
+		"Mozilla/5.0 (Linux; Android 14; Pixel 8) Mobile",
+		5,
 	);
+	await page.goto("/");
+	await expect(page.locator(".hero .actions a.button.primary")).toHaveAttribute(
+		"href",
+		"/download/",
+	);
+});
+
+for (const path of ["/", "/download/"]) {
+	test(`${path} never downloads or navigates to an asset by itself`, async ({
+		page,
+	}) => {
+		const downloads: string[] = [];
+		const assetRequests: string[] = [];
+		const navigations: string[] = [];
+		page.on("download", (download) => downloads.push(download.url()));
+		page.on("request", (request) => {
+			if (request.url().includes("/releases/download/"))
+				assetRequests.push(request.url());
+		});
+		page.on("framenavigated", (frame) => navigations.push(frame.url()));
+		await page.goto(path);
+		await page.waitForTimeout(1500);
+		expect(downloads).toEqual([]);
+		expect(assetRequests).toEqual([]);
+		expect(
+			navigations.every((url) => !url.includes("/releases/download/")),
+		).toBe(true);
+		const html = await page.content();
+		expect(html).not.toMatch(/http-equiv=["']refresh/i);
+		expect(await page.locator("iframe").count()).toBe(0);
+		expect(
+			await page
+				.locator(
+					'link[rel~="prefetch"], link[rel~="preload"][href*="releases/download"]',
+				)
+				.count(),
+		).toBe(0);
+	});
+}
+
+test("download page lists every platform's packages as direct links", async ({
+	page,
+}) => {
+	await page.goto("/download/");
+	await expect(page.locator(".package")).toHaveCount(22);
+	for (const platform of ["Windows", "macOS", "Linux", "FreeBSD"])
+		await expect(
+			page.locator(".package-platform", { hasText: platform }).first(),
+		).toBeVisible();
+	for (const kind of [
+		"EXE installer",
+		"MSI installer",
+		"Disk image",
+		"AppImage",
+		"DEB",
+		"RPM",
+		"Flatpak",
+		"TAR archive",
+		"CLI ZIP",
+	])
+		await expect(
+			page.locator(".package h3", { hasText: kind }).first(),
+		).toBeVisible();
+	for (const link of await page.locator(".package a.button").all())
+		await expect(link).toHaveAttribute(
+			"href",
+			/^https:\/\/github\.com\/tangency-labs\/solidcraft\/releases\/download\/v0\.22\.0\//,
+		);
+	await expect(page.locator("[data-release-tag]")).toHaveText("v0.22.0");
 	await expect(
-		actions.getByRole("link", { name: "Other downloads" }),
-	).toHaveAttribute("href", "/download/");
-	await expect(page.locator('a[href*="/releases/download/"]')).toHaveCount(0);
-	expect(downloads).toEqual([]);
+		page.locator("a[data-release-checksums]").first(),
+	).toHaveAttribute("href", /releases\/download\/v0\.22\.0\/SHA256SUMS\.txt$/);
+	await expect(page.locator("[data-homebrew]")).toContainText(
+		"brew install --cask tangency-labs/tap/solidcraft",
+	);
+	await expect(page.locator("#code-signing")).toContainText("SignPath");
 });

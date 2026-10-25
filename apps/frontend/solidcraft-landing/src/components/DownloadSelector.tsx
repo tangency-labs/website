@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useStore } from "zustand";
-import { site } from "../data/site";
 import {
 	architectures,
 	filterArtifacts,
@@ -11,7 +10,7 @@ import { useRelease } from "../lib/use-release";
 import { downloadStore } from "../stores/downloads";
 
 export default function DownloadSelector() {
-	const { artifacts, notes } = useRelease();
+	const { artifacts, notes, tag } = useRelease();
 	const {
 		filters: { platform, architecture, kind },
 		ready,
@@ -85,6 +84,7 @@ export default function DownloadSelector() {
 						<div className="package-top">
 							<span className="package-platform">{a.platform}</span>
 							<span className="package-arch">{a.architecture}</span>
+							<span className="package-arch">{tag}</span>
 						</div>
 						<h3>{a.kind}</h3>
 						<p className="package-size">
@@ -92,11 +92,11 @@ export default function DownloadSelector() {
 							{a.cli === "yes" ? " · CLI only" : ""}
 						</p>
 						<a
-							aria-label={`Get ${a.platform} ${a.architecture} ${a.kind} on the GitHub release page — ${a.name}`}
+							aria-label={`Download ${a.platform} ${a.architecture} ${a.kind} ${tag} — ${a.name}`}
 							className="button secondary"
-							href={site.latestRelease}
+							href={a.url}
 						>
-							{a.kind} on GitHub <span aria-hidden="true">↗</span>
+							Download {a.kind}
 						</a>
 						<p className="package-filename mono">{a.name}</p>
 						<details>

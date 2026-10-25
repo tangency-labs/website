@@ -19,8 +19,8 @@ const release = snapshotSchema.parse(snapshot);
 		<p class="eyebrow">DESKTOP DOWNLOADS</p>
 		<h1>Download SolidCraft.</h1>
 		<p class="lead">
-			We show the package that fits your system. Downloads happen on GitHub:
-			open the release and pick the file there.
+			Every installer and package for the latest release is listed below as a
+			direct link. A download starts only when you click one.
 		</p>
 		<div class="actions">
 			<PlatformDownload client:load />
@@ -45,9 +45,9 @@ const release = snapshotSchema.parse(snapshot);
 			<a
 				data-release-checksums
 				hidden={!release.checksums}
-				href={release.checksums ? site.latestRelease : undefined}
+				href={release.checksums ?? undefined}
 			>
-				SHA-256 checksums on GitHub ↗
+				SHA256SUMS ↗
 			</a>
 		</div>
 		{isStale(release.observedAt) && (
@@ -57,6 +57,10 @@ const release = snapshotSchema.parse(snapshot);
 				<a href={site.releases}>Check upstream for newer releases.</a>
 			</p>
 		)}
+		<p class="small" data-homebrew>
+			On macOS you can also install with Homebrew:{" "}
+			<code>brew install --cask tangency-labs/tap/solidcraft</code>
+		</p>
 		<DownloadSelector client:load />
 		<noscript>
 			<p class="notice">
@@ -118,7 +122,7 @@ const release = snapshotSchema.parse(snapshot);
 							class="text-link"
 							data-release-checksums
 							hidden={!release.checksums}
-							href={release.checksums ? site.latestRelease : undefined}
+							href={release.checksums ?? undefined}
 						>
 							View release checksums on GitHub<Icon name="external" size={18} />
 						</a>

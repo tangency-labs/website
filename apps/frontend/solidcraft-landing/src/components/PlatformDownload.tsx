@@ -41,30 +41,29 @@ export default function PlatformDownload() {
 		architecture,
 		filters.kind,
 	);
-	// The file itself is never linked from this site: the latest release page
-	// is, so the download starts from github.com and no stale tag can be linked.
-	const href = site.latestRelease;
+	// A plain link to the asset on github.com; only a click downloads it.
+	const href = artifact?.url ?? site.latestRelease;
 	const description = artifact
-		? `${platform} ${artifact.architecture}: pick the ${artifact.kind} (${formatBytes(artifact.bytes)}) on the release page.`
+		? `${platform} ${artifact.architecture}: ${artifact.kind}, ${formatBytes(artifact.bytes)}.`
 		: platform
-			? `Pick the package for ${platform} on the release page.`
-			: "Pick your platform's package on the release page.";
+			? `Pick the package for ${platform} from the list below.`
+			: "Pick your platform's package from the list below.";
 	return (
 		<div className="platform-download" data-platform-download>
 			<a className="button primary" href={href}>
 				<Download aria-hidden="true" size={18} strokeWidth={1.5} />
 				<span data-download-label>
 					{platform
-						? `Get SolidCraft for ${platform}`
-						: "Get SolidCraft for your platform"}
+						? `Download SolidCraft for ${platform}`
+						: "Download SolidCraft"}
 				</span>
 			</a>
 			<p className="small muted" data-download-description>
 				{description}
 			</p>
 			<p className="small muted" data-auto-download-status role="status">
-				This opens the release on GitHub, where you choose the file to download.
-				Other platforms and formats are listed below.
+				Nothing downloads until you click a link. Other platforms and formats
+				are listed below.
 			</p>
 		</div>
 	);
