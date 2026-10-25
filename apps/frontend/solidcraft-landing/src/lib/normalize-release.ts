@@ -129,15 +129,15 @@ export function normalizeRelease(
 	const platformOrder = ["Windows", "macOS", "Linux", "FreeBSD"];
 	const architectureOrder = ["x64", "ARM64", "x86", "Universal"];
 	const kindOrder = [
-		"EXE installer",
 		"MSI installer",
+		"Portable ZIP",
+		"EXE installer",
 		"Disk image",
 		"AppImage",
 		"DEB",
 		"RPM",
 		"Flatpak",
 		"Snap",
-		"Portable ZIP",
 		"TAR archive",
 		"CLI ZIP",
 	];

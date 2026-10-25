@@ -135,11 +135,11 @@ export function recommendArtifact<T extends DownloadChoice>(
 	);
 	const preferred = [
 		"Disk image",
-		"EXE installer",
 		"MSI installer",
 		"AppImage",
 		"TAR archive",
 		"Portable ZIP",
+		"EXE installer",
 	];
 	for (const type of preferred) {
 		const artifact = candidates.find((candidate) => candidate.kind === type);
@@ -162,3 +162,12 @@ export function homeDownload<T extends DownloadChoice>(
 		return null;
 	return recommendArtifact(artifacts, system.platform, system.architecture);
 }
+
+// The bare Windows .exe is the app without an installer (no Start Menu entry,
+// no PATH, no CLI), so the page says so and recommends the MSI.
+export const kindLabel = (kind: string) =>
+	kind === "MSI installer"
+		? "Installer (recommended)"
+		: kind === "EXE installer"
+			? "App only, no installer"
+			: kind;

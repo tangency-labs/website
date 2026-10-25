@@ -1,7 +1,7 @@
 {
 	"schemaVersion": 1,
 	"repository": "tangency-labs/solidcraft",
-	"observedAt": "2026-10-25T13:38:03.819Z",
+	"observedAt": "2026-10-25T15:46:24.308Z",
 	"tag": "v0.22.0",
 	"releaseId": 423049323,
 	"publishedAt": "2026-10-24T23:53:21Z",
@@ -10,18 +10,6 @@
 	"checksums": "https://github.com/tangency-labs/solidcraft/releases/download/v0.22.0/SHA256SUMS.txt",
 	"verification": "upstream-metadata-reviewed",
 	"artifacts": [
-		{
-			"id": 673615553,
-			"name": "SolidCraft-0.22.0-windows-x64.exe",
-			"platform": "Windows",
-			"architecture": "x64",
-			"kind": "EXE installer",
-			"bytes": 138345472,
-			"url": "https://github.com/tangency-labs/solidcraft/releases/download/v0.22.0/SolidCraft-0.22.0-windows-x64.exe",
-			"digest": "sha256:24e3765af6b35ae4e8a8d1c2360411b5c1f6e6426d43012cef73c640de22f6ea",
-			"signing": "unknown",
-			"cli": "unknown"
-		},
 		{
 			"id": 673615851,
 			"name": "solidcraft-0.22.0-windows-x64.msi",
@@ -43,6 +31,18 @@
 			"bytes": 92440690,
 			"url": "https://github.com/tangency-labs/solidcraft/releases/download/v0.22.0/solidcraft-0.22.0-windows-x64-portable.zip",
 			"digest": "sha256:47b3a1c3e52cc5d9aa775358a84f46a19db6ecf5c62c8d429d434b9fe5c34444",
+			"signing": "unknown",
+			"cli": "unknown"
+		},
+		{
+			"id": 673615553,
+			"name": "SolidCraft-0.22.0-windows-x64.exe",
+			"platform": "Windows",
+			"architecture": "x64",
+			"kind": "EXE installer",
+			"bytes": 138345472,
+			"url": "https://github.com/tangency-labs/solidcraft/releases/download/v0.22.0/SolidCraft-0.22.0-windows-x64.exe",
+			"digest": "sha256:24e3765af6b35ae4e8a8d1c2360411b5c1f6e6426d43012cef73c640de22f6ea",
 			"signing": "unknown",
 			"cli": "unknown"
 		},

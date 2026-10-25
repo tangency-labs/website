@@ -343,10 +343,22 @@ test("missing route returns an actual 404 and security headers are enforced", as
 
 const systems = [
 	{
+		name: "Windows ARM64",
+		platform: "Win32",
+		agent: "Mozilla/5.0 (Windows NT 10.0; ARM64)",
+		href: /releases\/download\/v0\.22\.0\/solidcraft-0\.22\.0-windows-arm64\.msi$/,
+	},
+	{
+		name: "Windows x86",
+		platform: "Win32",
+		agent: "Mozilla/5.0 (Windows NT 10.0; Win32; x86)",
+		href: /releases\/download\/v0\.22\.0\/solidcraft-0\.22\.0-windows-x86\.msi$/,
+	},
+	{
 		name: "Windows x64",
 		platform: "Win32",
 		agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
-		href: /releases\/download\/v0\.22\.0\/SolidCraft-0\.22\.0-windows-x64\.exe$/,
+		href: /releases\/download\/v0\.22\.0\/solidcraft-0\.22\.0-windows-x64\.msi$/,
 	},
 	{
 		name: "macOS",
@@ -477,8 +489,9 @@ test("download page lists every platform's packages as direct links", async ({
 			page.locator(".package-platform", { hasText: platform }).first(),
 		).toBeVisible();
 	for (const kind of [
-		"EXE installer",
-		"MSI installer",
+		"App only, no installer",
+		"Installer (recommended)",
+		"Portable ZIP",
 		"Disk image",
 		"AppImage",
 		"DEB",
@@ -495,6 +508,11 @@ test("download page lists every platform's packages as direct links", async ({
 			"href",
 			/^https:\/\/github\.com\/tangency-labs\/solidcraft\/releases\/download\/v0\.22\.0\//,
 		);
+	// Windows x64 order: installer, portable zip, then the bare app.
+	const winKinds = page.locator(".package", { hasText: "x64" }).locator("h3");
+	await expect(winKinds.nth(0)).toHaveText("Installer (recommended)");
+	await expect(winKinds.nth(1)).toHaveText("Portable ZIP");
+	await expect(winKinds.nth(2)).toHaveText("App only, no installer");
 	await expect(page.locator("[data-release-tag]")).toHaveText("v0.22.0");
 	await expect(
 		page.locator("a[data-release-checksums]").first(),
