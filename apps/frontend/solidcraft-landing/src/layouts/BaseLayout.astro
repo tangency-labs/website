@@ -7,8 +7,14 @@ interface Props {
 	title: string;
 	description: string;
 	class?: string;
+	robots?: string;
 }
-const { title, description, class: pageClass } = Astro.props;
+const {
+	title,
+	description,
+	class: pageClass,
+	robots = "index, follow",
+} = Astro.props;
 const canonical = new URL(Astro.url.pathname, "https://solidcraft.io").href;
 ---
 
@@ -19,7 +25,7 @@ const canonical = new URL(Astro.url.pathname, "https://solidcraft.io").href;
 		<meta content="width=device-width, initial-scale=1" name="viewport">
 		<title>{title}</title>
 		<meta content={description} name="description">
-		<meta content="index, follow" name="robots">
+		<meta content={robots} name="robots">
 		<link href={canonical} rel="canonical">
 		<link href="/llms.txt" rel="describedby">
 		<link href="/favicon.ico" rel="icon" sizes="any">
