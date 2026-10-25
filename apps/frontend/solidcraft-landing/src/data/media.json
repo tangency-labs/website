@@ -32,73 +32,73 @@
 		},
 		{
 			"path": "/media/enclosure-parameter.jpg",
-			"bytes": 183553,
-			"sha256": "4aa8f6a642e8a8339f80dab7d9d6d1a105aa20d546c2d062cd382f7599e490bd",
-			"sourceRevision": "843c54858909172b203d116df51970303292e4c6",
-			"source": "tangency-labs/solidcraft",
+			"bytes": 207926,
+			"sha256": "d56efea576b44f7964891ca4e016e050c745515bc1c2b51ef0f48cb2c140c5b8",
+			"sourceRevision": "52e5bc114e74ab8b8c3127f25463af53c7c36768",
+			"source": "tangency-labs/solidcraft/examples/demo/record_ui.sh",
 			"license": "MIT OR Apache-2.0",
 			"creator": "SolidCraft contributors",
-			"transformation": "frame extracted with ffmpeg; 1600 px wide JPEG"
+			"transformation": "frame extracted with ffmpeg from enclosure-parameter.mp4; 1600 px wide JPEG"
 		},
 		{
 			"path": "/media/enclosure-parameter.mp4",
-			"bytes": 1834949,
-			"sha256": "70ce1b37d1bb6e6c532b003bed90820899e2cf403174caa38c82ff709341726b",
-			"sourceRevision": "843c54858909172b203d116df51970303292e4c6",
-			"source": "tangency-labs/solidcraft/docs/screenshots/demo-0.8.mp4",
+			"bytes": 2465585,
+			"sha256": "9aa970819275664676e0467d9256e7d4a10dda2398d7cf71482b1ee45ec2887a",
+			"sourceRevision": "52e5bc114e74ab8b8c3127f25463af53c7c36768",
+			"source": "tangency-labs/solidcraft/examples/demo/record_ui.sh",
 			"license": "MIT OR Apache-2.0",
 			"creator": "SolidCraft contributors",
-			"transformation": "Excerpt from source seconds 33 to 40.966667; resized to 1600x900; H.264 CRF 20; original upstream 9x playback retained"
+			"transformation": "Excerpt of the same take from the height 24 to 32 mm Parameters step to the end, played at 4x; resized to 1600x900; H.264 CRF 20"
 		},
 		{
 			"path": "/media/enclosure-poster.jpg",
-			"bytes": 158436,
-			"sha256": "709c16484b2ba08d59cd9e8fbe8bdee051cc8a5ac6466e935d508883f3fe7897",
-			"sourceRevision": "843c54858909172b203d116df51970303292e4c6",
-			"source": "tangency-labs/solidcraft",
+			"bytes": 169658,
+			"sha256": "26bd7b4e0a4c1bf4a36fa0c12bb7fabc89410b8c50e01e3810642cce746074cb",
+			"sourceRevision": "52e5bc114e74ab8b8c3127f25463af53c7c36768",
+			"source": "tangency-labs/solidcraft/examples/demo/record_ui.sh",
 			"license": "MIT OR Apache-2.0",
 			"creator": "SolidCraft contributors",
-			"transformation": "frame extracted with ffmpeg; 1600 px wide JPEG"
+			"transformation": "frame extracted with ffmpeg from the last second of enclosure.mp4; 1600 px wide JPEG"
 		},
 		{
 			"path": "/media/enclosure.mp4",
-			"bytes": 9898701,
-			"sha256": "086d90f5953ca4f86a9a3f2b9d5cf592b02b9b2fea636be1f057958c8d7e4a24",
-			"sourceRevision": "843c54858909172b203d116df51970303292e4c6",
-			"source": "tangency-labs/solidcraft",
+			"bytes": 9897565,
+			"sha256": "a17d9d8057a3ba92ddcc98f4f9e811b0e3df6badfbe8e963eed8e82108cff7c4",
+			"sourceRevision": "52e5bc114e74ab8b8c3127f25463af53c7c36768",
+			"source": "tangency-labs/solidcraft/examples/demo/record_ui.sh",
 			"license": "MIT OR Apache-2.0",
 			"creator": "SolidCraft contributors",
-			"transformation": "unchanged upstream asset"
+			"transformation": "Real-time take of examples/demo/record_ui.sh (story pi) on SolidCraft 0.22.1, 1920x1080, default dark theme; played at 6x; H.264 CRF 20"
 		},
 		{
 			"path": "/media/rover-poster.jpg",
-			"bytes": 222705,
-			"sha256": "6e0f963da977695bc4747cb16139e664146d19bec53e5c567d9c8c71578871fe",
-			"sourceRevision": "843c54858909172b203d116df51970303292e4c6",
-			"source": "tangency-labs/solidcraft",
+			"bytes": 233656,
+			"sha256": "f78645c98e86bc8256de93f240c68189e1ea9989d450bba988672e6116c9a68a",
+			"sourceRevision": "52e5bc114e74ab8b8c3127f25463af53c7c36768",
+			"source": "tangency-labs/solidcraft/examples/demo/record_rover.sh",
 			"license": "MIT OR Apache-2.0",
 			"creator": "0xlillith (model); SolidCraft contributors (recording)",
-			"transformation": "frame extracted with ffmpeg; 1600 px wide JPEG"
+			"transformation": "frame extracted with ffmpeg from rover.mp4; 1600 px wide JPEG"
 		},
 		{
 			"path": "/media/rover.mp4",
-			"bytes": 11916279,
-			"sha256": "6b0982f374495f2a2f07b23ebaf76610abe183a1ba33ae3c674eee4e4ae04db4",
-			"sourceRevision": "843c54858909172b203d116df51970303292e4c6",
-			"source": "tangency-labs/solidcraft",
+			"bytes": 8962170,
+			"sha256": "ae472460ce89a3e18fe4b3e16c780fe77a19263831c6b0395dc6e6a4d14a163a",
+			"sourceRevision": "52e5bc114e74ab8b8c3127f25463af53c7c36768",
+			"source": "tangency-labs/solidcraft/examples/demo/record_rover.sh",
 			"license": "MIT OR Apache-2.0",
 			"creator": "0xlillith (model); SolidCraft contributors (recording)",
-			"transformation": "unchanged upstream asset"
+			"transformation": "Replay of Rover-recorded.solidcraft's 3,323 timeline steps in SolidCraft 0.22.1, 1920x1080, default dark theme, played at 2x; H.264 CRF 23"
 		},
 		{
 			"path": "/media/sample-plate.png",
-			"bytes": 1432078,
-			"sha256": "3ecd5f69f3e515d6c45a4a307a6b2c2ac6513f694d4e21585b5551a4232e8541",
-			"sourceRevision": "843c54858909172b203d116df51970303292e4c6",
+			"bytes": 668370,
+			"sha256": "f818aec0cd00635227223083c87be9d161412fb22864958f726f8dd0a5642919",
+			"sourceRevision": "52e5bc114e74ab8b8c3127f25463af53c7c36768",
 			"source": "tangency-labs/solidcraft",
 			"license": "MIT OR Apache-2.0",
 			"creator": "SolidCraft contributors",
-			"transformation": "unchanged upstream asset"
+			"transformation": "screenshot of `solidcraft --sample` (SolidCraft 0.22.1, default dark theme, 1600x1000) taken with the control channel's ui.screenshot"
 		},
 		{
 			"path": "/brand/blacksmith-ci.svg",
