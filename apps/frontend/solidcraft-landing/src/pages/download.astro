@@ -170,15 +170,15 @@ const release = snapshotSchema.parse(snapshot);
 	</section>
 	<section class="container" style="padding-bottom:80px">
 		<div class="notice">
-			<strong>Compatibility note for v0.12.0</strong>
+			<strong>Before upgrading</strong>
 			<br>
-			Designs saved by 0.12.0 use file format 21 and cannot be opened in 0.11.x
-			or earlier. Keep backups before upgrading.{" "}
-			<a
-				href="https://github.com/tangency-labs/solidcraft/releases/tag/v0.12.0"
-			>
-				Read the compatibility notes.
-			</a>
+			Keep backups of your designs. File format and compatibility changes are
+			listed in the{" "}
+			<a data-release-notes href={release.notes}>
+				{release.tag}
+				release notes
+			</a
+			>.
 		</div>
 		<details class="prose">
 			<summary>Development builds, Flatpak, and building from source</summary>
