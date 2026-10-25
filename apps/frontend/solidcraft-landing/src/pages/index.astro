@@ -9,12 +9,19 @@ import Video from "../components/Video.astro";
 import release from "../data/releases.json";
 import { guide, site } from "../data/site";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { homeStructuredData } from "../lib/structured-data";
 ---
 
 <BaseLayout
 	description="Sketch, constrain, and build editable parts with SolidCraft. Open-source parametric CAD for desktop and browser, with optional MCP agent workflows."
-	title="SolidCraft · Open Source Parametric CAD in Rust"
+	title="SolidCraft: free, open-source parametric 3D CAD"
 >
+	<script
+		slot="head"
+		type="application/ld+json"
+		is:inline
+		set:html={JSON.stringify(homeStructuredData(release.tag))}
+	/>
 	<section class="hero">
 		<div class="container hero-grid">
 			<div>
