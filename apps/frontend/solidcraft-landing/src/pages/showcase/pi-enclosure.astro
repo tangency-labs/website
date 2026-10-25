@@ -5,7 +5,7 @@ import Video from "../../components/Video.astro";
 import { guide, site } from "../../data/site";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
-const source = `${site.repo}/tree/843c54858909172b203d116df51970303292e4c6/examples/demo`;
+const source = `${site.repo}/tree/52e5bc114e74ab8b8c3127f25463af53c7c36768/examples/demo`;
 ---
 
 <BaseLayout
@@ -38,7 +38,7 @@ const source = `${site.repo}/tree/843c54858909172b203d116df51970303292e4c6/examp
 			</p>
 			<p>
 				Finally, the height parameter changes from 24 to 32 mm, and the model
-				rebuilds. The visible recording compresses the workflow to 9× playback.
+				rebuilds. The visible recording compresses the workflow to 6× playback.
 			</p>
 			<h2 style="margin-top:40px">Recording script and guides.</h2>
 			<p>
@@ -51,8 +51,9 @@ const source = `${site.repo}/tree/843c54858909172b203d116df51970303292e4c6/examp
 			</a>
 			<div class="notice">
 				This is a modeling demonstration. No physical fit, manufacturing
-				tolerance, or electrical suitability is asserted. The recording is an
-				earlier build and is not a test of v0.12.0.
+				tolerance, or electrical suitability is asserted. The recording was made
+				with SolidCraft 0.22.1, a build of the main branch, and is not a test of
+				any release.
 			</div>
 		</div>
 		<aside>
@@ -60,13 +61,13 @@ const source = `${site.repo}/tree/843c54858909172b203d116df51970303292e4c6/examp
 				<dt>Creator</dt>
 				<dd>SolidCraft contributors</dd>
 				<dt>Recording</dt>
-				<dd>Upstream demo-0.8 recording; its title bar shows v0.7.0</dd>
+				<dd>Recorded with SolidCraft 0.22.1 (its title bar shows v0.22.1)</dd>
 				<dt>Playback</dt>
-				<dd>9× · silent workflow recording</dd>
+				<dd>6× · silent workflow recording</dd>
 				<dt>License</dt>
 				<dd>MIT OR Apache-2.0</dd>
 				<dt>Source revision</dt>
-				<dd><code>843c54858909</code></dd>
+				<dd><code>52e5bc114e74</code></dd>
 			</dl>
 			<a class="text-link" href={guide("parameters")}>
 				Parameters guide<Icon name="external" size={18} />
