@@ -4,6 +4,7 @@ import {
 	architectures,
 	filterArtifacts,
 	formatBytes,
+	kindLabel,
 	platforms,
 } from "../lib/download-utils";
 import { useRelease } from "../lib/use-release";
@@ -62,7 +63,9 @@ export default function DownloadSelector() {
 					>
 						<option value="">All formats</option>
 						{kinds.map((k) => (
-							<option key={k}>{k}</option>
+							<option key={k} value={k}>
+								{kindLabel(k)}
+							</option>
 						))}
 					</select>
 				</div>
@@ -86,17 +89,17 @@ export default function DownloadSelector() {
 							<span className="package-arch">{a.architecture}</span>
 							<span className="package-arch">{tag}</span>
 						</div>
-						<h3>{a.kind}</h3>
+						<h3>{kindLabel(a.kind)}</h3>
 						<p className="package-size">
 							{formatBytes(a.bytes)}
 							{a.cli === "yes" ? " · CLI only" : ""}
 						</p>
 						<a
-							aria-label={`Download ${a.platform} ${a.architecture} ${a.kind} ${tag} — ${a.name}`}
+							aria-label={`Download ${a.platform} ${a.architecture} ${kindLabel(a.kind)} ${tag} — ${a.name}`}
 							className="button secondary"
 							href={a.url}
 						>
-							Download {a.kind}
+							Download {kindLabel(a.kind)}
 						</a>
 						<p className="package-filename mono">{a.name}</p>
 						<details>

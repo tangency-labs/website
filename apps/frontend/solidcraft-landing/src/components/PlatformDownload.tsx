@@ -6,6 +6,7 @@ import {
 	type Architecture,
 	detectDownloadSystem,
 	formatBytes,
+	kindLabel,
 	type Platform,
 	recommendArtifact,
 } from "../lib/download-utils";
@@ -44,7 +45,7 @@ export default function PlatformDownload() {
 	// A plain link to the asset on github.com; only a click downloads it.
 	const href = artifact?.url ?? site.latestRelease;
 	const description = artifact
-		? `${platform} ${artifact.architecture}: ${artifact.kind}, ${formatBytes(artifact.bytes)}.`
+		? `${platform} ${artifact.architecture}: ${kindLabel(artifact.kind)}, ${formatBytes(artifact.bytes)}.`
 		: platform
 			? `Pick the package for ${platform} from the list below.`
 			: "Pick your platform's package from the list below.";
