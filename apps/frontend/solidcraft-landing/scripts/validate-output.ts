@@ -42,7 +42,10 @@ for (const route of [...routes, ...progressPages.map((page) => page.path)]) {
 	if (!html.includes("/disclaimer/") || !html.includes("/privacy/"))
 		throw new Error(`Missing legal navigation: ${route}`);
 }
-await stat("dist/404.html");
+const notFound = await readFile("dist/404.html", "utf8");
+if (!notFound.includes('content="noindex" name="robots"'))
+	throw new Error("404.html must be noindex.");
+
 const robots = await readFile("dist/robots.txt", "utf8");
 if (
 	!/^User-agent: \*$/m.test(robots) ||
@@ -114,7 +117,7 @@ for (const file of files.filter((file) => file.endsWith(".html"))) {
 const csp = `default-src 'self'; script-src 'self' ${[...inlineScriptHashes].sort().join(" ")}; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; media-src 'self'; connect-src 'self' https://api.github.com https://tangency-labs.github.io; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'`;
 await writeFile(
 	"dist/_headers",
-	`/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n  X-Frame-Options: DENY\n  Permissions-Policy: camera=(), microphone=(), geolocation=()\n  Content-Security-Policy: ${csp}\n\n/_astro/*\n  Cache-Control: public, max-age=31536000, immutable\n`,
+	`/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n  X-Frame-Options: DENY\n  Permissions-Policy: camera=(), microphone=(), geolocation=()\n  Content-Security-Policy: ${csp}\n\n/_astro/*\n  Cache-Control: public, max-age=31536000, immutable\n\n/notices/*\n  X-Robots-Tag: noindex\n`,
 );
 console.log(
 	`Static output valid: ${files.length} files, ${links} local references, ${inlineScriptHashes.size} CSP script hashes. Crawling and indexing allowed.`,
