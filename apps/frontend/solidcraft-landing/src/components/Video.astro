@@ -8,11 +8,6 @@ const enclosure = model === "enclosure";
 const parameterChange = enclosure && variant === "parameter-change";
 const captionId = `${parameterChange ? "parameter-change" : model}-caption`;
 const source = `/media/${parameterChange ? "enclosure-parameter" : model}.mp4`;
-const caption = parameterChange
-	? "Height 24 → 32 mm · excerpt from the upstream recording · 9× playback"
-	: enclosure
-		? "Enclosure · upstream demo-0.8 recording · 9× playback"
-		: "SELENE rover · Model by 0xlillith · Timeline replay at 2×";
 ---
 
 <figure class="product-media">
@@ -38,9 +33,8 @@ const caption = parameterChange
 		<a href={source}>Download the demonstration video</a>
 	</video>
 	<figcaption id={captionId}>
-		<span>{caption}</span>
 		<a href={enclosure ? "/showcase/pi-enclosure/" : "/showcase/selene/"}>
-			Workflow & credits<span aria-hidden="true">↗</span>
+			How it was built<span aria-hidden="true"> →</span>
 		</a>
 	</figcaption>
 </figure>

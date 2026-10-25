@@ -411,31 +411,27 @@ code {
 .hero-media .product-media {
 	box-shadow: 0 18px 60px #0003;
 }
-.product-media {
-	border: 1px solid var(--line);
-	border-radius: 6px;
-	overflow: hidden;
-	background: var(--surface);
-}
 .product-media video {
+	display: block;
+	width: 100%;
 	aspect-ratio: 16 / 9;
 	object-fit: contain;
+	border: 1px solid var(--line);
+	border-radius: 6px;
+	background: var(--surface);
 }
 .product-media figcaption {
-	padding: 13px 16px;
-	display: flex;
-	flex-wrap: wrap;
-	gap: 6px 20px;
-	justify-content: space-between;
+	padding: 10px 2px 0;
 	color: var(--muted);
-	font-family: "IBM Plex Mono", monospace;
-	font-size: 10px;
-	line-height: 1.6;
-	border-top: 1px solid var(--line);
+	font-size: 13px;
+	line-height: 1.5;
 }
 .product-media figcaption a {
-	color: var(--link);
+	color: var(--muted);
 	white-space: nowrap;
+}
+.product-media figcaption a:hover {
+	color: var(--link);
 }
 .release-line {
 	position: relative;
@@ -1447,8 +1443,7 @@ tr:last-child td {
 		gap: 6px 12px;
 	}
 	.product-media figcaption {
-		padding: 12px;
-		font-size: 9px;
+		font-size: 12px;
 	}
 	.workflow-strip {
 		grid-template-columns: 1fr 1fr;
