@@ -1,6 +1,8 @@
 import { z } from "zod";
 import { type Artifact, snapshotSchema } from "./releases.ts";
 
+export type { Artifact };
+
 const githubRelease = z.object({
 	id: z.number().int().positive(),
 	tag_name: z.string(),

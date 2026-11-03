@@ -3,6 +3,7 @@ import DownloadSelector from "../components/DownloadSelector";
 import Icon from "../components/Icon.astro";
 import LiveRelease from "../components/LiveRelease.astro";
 import PlatformDownload from "../components/PlatformDownload";
+import ReleaseCandidateDownloads from "../components/ReleaseCandidateDownloads";
 import snapshot from "../data/releases.json";
 import { guide, site } from "../data/site";
 import BaseLayout from "../layouts/BaseLayout.astro";
@@ -27,6 +28,29 @@ const release = snapshotSchema.parse(snapshot);
 			<a class="text-link" href={guide("getting-started")}>
 				Installation guide<Icon name="external" size={18} />
 			</a>
+		</div>
+	</section>
+	<section
+		aria-labelledby="release-candidate-heading"
+		class="container"
+		data-prereleases
+		id="release-candidate"
+	>
+		<div class="notice">
+			<h2 id="release-candidate-heading">Download the release candidate</h2>
+			<p>
+				This is the next version, for people who want to test it early. It can
+				break, and designs saved in it may not open in the stable version, so
+				keep a copy of anything you care about. Windows may warn you about these
+				files.
+			</p>
+			<ReleaseCandidateDownloads client:load />
+			<noscript>
+				<p class="small muted">
+					Find release candidates on
+					<a href={site.releases}>GitHub Releases</a>.
+				</p>
+			</noscript>
 		</div>
 	</section>
 	<section
@@ -60,12 +84,6 @@ const release = snapshotSchema.parse(snapshot);
 		<p class="small" data-homebrew>
 			On macOS you can also install with Homebrew:{" "}
 			<code>brew install --cask tangency-labs/tap/solidcraft</code>
-		</p>
-		<p class="small muted" data-prereleases style="margin-top:12px">
-			Want to test early? Release candidates are published as pre-releases on{" "}
-			<a class="text-link" href={site.releases}>GitHub Releases</a>. They can
-			break, and designs saved in them may not open in the stable version. The
-			downloads above are always the latest stable release.
 		</p>
 		<DownloadSelector client:load />
 		<noscript>

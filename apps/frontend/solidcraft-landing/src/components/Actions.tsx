@@ -70,6 +70,10 @@ export default function Actions({
 					<a className="text-link" href={site.appEdge}>
 						latest build
 					</a>
+					, or{" "}
+					<a className="text-link" href={site.rcDownloads}>
+						download the release candidate
+					</a>
 					. These can break, and designs saved in them may not open in the
 					stable version.
 				</p>
