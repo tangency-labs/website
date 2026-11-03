@@ -70,7 +70,7 @@ test("interior pages reflow on mobile, and font failure preserves usable content
 	await page.emulateMedia({ reducedMotion: "reduce" });
 	await page.goto("/");
 	await expect(page.locator(".hero h1")).toBeVisible();
-	await expect(page.locator(".hero .actions a")).toHaveCount(3);
+	await expect(page.locator(".hero .actions a")).toHaveCount(5);
 	expect(
 		await page.evaluate(
 			() => document.documentElement.scrollWidth <= window.innerWidth,
@@ -91,6 +91,12 @@ test("hero actions stay visible and layouts reflow at representative widths", as
 		await expect(
 			actions.getByRole("link", { name: "Try in your browser" }),
 		).toHaveAttribute("href", site.app);
+		await expect(
+			actions.getByRole("link", { name: "release candidate" }),
+		).toHaveAttribute("href", site.appRc);
+		await expect(
+			actions.getByRole("link", { name: "latest build" }),
+		).toHaveAttribute("href", site.appEdge);
 		expect(
 			await page.evaluate(
 				() => document.documentElement.scrollWidth <= window.innerWidth,

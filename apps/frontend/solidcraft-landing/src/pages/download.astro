@@ -61,6 +61,12 @@ const release = snapshotSchema.parse(snapshot);
 			On macOS you can also install with Homebrew:{" "}
 			<code>brew install --cask tangency-labs/tap/solidcraft</code>
 		</p>
+		<p class="small muted" data-prereleases style="margin-top:12px">
+			Want to test early? Release candidates are published as pre-releases on{" "}
+			<a class="text-link" href={site.releases}>GitHub Releases</a>. They can
+			break, and designs saved in them may not open in the stable version. The
+			downloads above are always the latest stable release.
+		</p>
 		<DownloadSelector client:load />
 		<noscript>
 			<p class="notice">
