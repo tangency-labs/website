@@ -16,9 +16,11 @@ import { useRelease } from "../lib/use-release";
 export default function Actions({
 	compact = false,
 	direct = false,
+	versions = false,
 }: {
 	compact?: boolean;
 	direct?: boolean;
+	versions?: boolean;
 }) {
 	const release = useRelease();
 	const [system, setSystem] = useState<{
@@ -58,6 +60,20 @@ export default function Actions({
 				<Globe aria-hidden="true" size={18} strokeWidth={1.5} />
 				Try in your browser
 			</a>
+			{versions && (
+				<p className="small muted" style={{ flexBasis: "100%" }}>
+					Other versions to try:{" "}
+					<a className="text-link" href={site.appRc}>
+						release candidate
+					</a>{" "}
+					or{" "}
+					<a className="text-link" href={site.appEdge}>
+						latest build
+					</a>
+					. These can break, and designs saved in them may not open in the
+					stable version.
+				</p>
+			)}
 		</div>
 	);
 }
