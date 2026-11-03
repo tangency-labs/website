@@ -72,7 +72,9 @@ import ArticleLayout from "../layouts/ArticleLayout.astro";
 		your IP address and ordinary request headers. The result is kept in your
 		browser&rsquo;s local storage for five minutes, and the pages work if
 		storage or GitHub is unavailable. SolidCore progress pages likewise fetch
-		public reports from tangency-labs.github.io. Download links go straight to
+		public reports from tangency-labs.github.io. The release candidate and
+		latest-build web apps at /app-rc/ and /app-edge/ are fetched from GitHub
+		Pages through Cloudflare, which passes on your request headers. Download links go straight to
 		GitHub release files, and this site adds no tracking parameters. GitHub
 		handles those requests under its{" "}
 		<a

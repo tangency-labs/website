@@ -1,8 +1,4 @@
 /app https://docs.solidcraft.io/app 302
 /app/ https://docs.solidcraft.io/app 302
-/app-rc https://docs.solidcraft.io/app-rc/ 302
-/app-rc/ https://docs.solidcraft.io/app-rc/ 302
-/app-edge https://docs.solidcraft.io/app-edge/ 302
-/app-edge/ https://docs.solidcraft.io/app-edge/ 302
 /downloads/ /download/ 301
 /github/ https://github.com/tangency-labs/solidcraft 302
