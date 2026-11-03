@@ -16,7 +16,14 @@ async function walk(dir: string) {
 	}
 }
 await walk("dist");
-if (files.some((file) => /(?:_worker\.js|server\/|functions\/)/.test(file)))
+// The one server piece is the same-site proxy for /app-rc/ and /app-edge/ (public/_worker.js).
+if (
+	files.some(
+		(file) =>
+			file !== "dist/_worker.js" &&
+			/(?:_worker\.js|server\/|functions\/)/.test(file),
+	)
+)
 	throw new Error("Unexpected server runtime.");
 if (files.length >= 20_000)
 	throw new Error("Cloudflare Pages file-count budget exceeded.");
