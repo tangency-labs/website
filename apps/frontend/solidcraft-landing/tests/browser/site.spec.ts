@@ -70,7 +70,7 @@ test("interior pages reflow on mobile, and font failure preserves usable content
 	await page.emulateMedia({ reducedMotion: "reduce" });
 	await page.goto("/");
 	await expect(page.locator(".hero h1")).toBeVisible();
-	await expect(page.locator(".hero .actions a")).toHaveCount(5);
+	await expect(page.locator(".hero .actions a")).toHaveCount(6);
 	expect(
 		await page.evaluate(
 			() => document.documentElement.scrollWidth <= window.innerWidth,

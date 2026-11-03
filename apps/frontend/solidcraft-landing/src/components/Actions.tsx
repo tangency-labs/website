@@ -69,6 +69,10 @@ export default function Actions({
 					or{" "}
 					<a className="text-link" href={site.appEdge}>
 						latest build
+					</a>{" "}
+					in your browser, or{" "}
+					<a className="text-link" href={site.rcDownloads}>
+						pre-release desktop downloads
 					</a>
 					. These can break, and designs saved in them may not open in the
 					stable version.

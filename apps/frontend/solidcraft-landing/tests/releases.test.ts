@@ -9,6 +9,7 @@ import {
 	classifyArtifact,
 	normalizeRelease,
 } from "../src/lib/normalize-release.ts";
+import { pickReleaseCandidate } from "../src/lib/release-candidate.ts";
 import {
 	filterArtifacts,
 	formatBytes,
@@ -266,5 +267,39 @@ test("live normalization skips new package roles, allows missing checksum files,
 			snapshot.observedAt,
 			true,
 		),
+	);
+});
+
+test("the release candidate list picks the newest rc that is newer than stable", () => {
+	const release = (tag: string, overrides = {}) => ({
+		tag_name: tag,
+		draft: false,
+		prerelease: true,
+		html_url: `https://github.com/tangency-labs/solidcraft/releases/tag/${tag}`,
+		assets: [
+			{
+				id: 1,
+				name: `solidcraft-${tag.slice(1)}-linux-x86_64.deb`,
+				size: 10,
+				browser_download_url: `https://github.com/tangency-labs/solidcraft/releases/download/${tag}/solidcraft-${tag.slice(1)}-linux-x86_64.deb`,
+			},
+		],
+		...overrides,
+	});
+	const picked = pickReleaseCandidate(
+		[
+			release("v0.40.0-rc.2"),
+			release("v0.40.0-rc.10"),
+			release("v0.40.0-rc.11", { draft: true }),
+			release("v0.21.0-rc.2"),
+			release("v0.41.0-nightly"),
+		],
+		"v0.30.1",
+	);
+	assert.equal(picked?.tag, "v0.40.0-rc.10");
+	assert.equal(picked?.artifacts[0].kind, "DEB");
+	assert.equal(
+		pickReleaseCandidate([release("v0.40.0-rc.1")], "v0.40.0"),
+		null,
 	);
 });
