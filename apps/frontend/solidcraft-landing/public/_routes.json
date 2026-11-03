@@ -1,5 +1,0 @@
-{
-	"version": 1,
-	"include": ["/app-rc", "/app-rc/*", "/app-edge", "/app-edge/*"],
-	"exclude": []
-}

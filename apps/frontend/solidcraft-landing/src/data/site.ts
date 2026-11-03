@@ -1,10 +1,9 @@
 export const site = {
 	name: "SolidCraft",
 	url: "https://solidcraft.io",
-	app: "https://solidcraft.io/app",
+	app: "https://app.solidcraft.io/",
 	rcDownloads: "/download/#release-candidate",
-	appRc: "https://solidcraft.io/app-rc",
-	appEdge: "https://solidcraft.io/app-edge",
+	appRc: "https://app-rc.solidcraft.io/",
 	discord: "/discord",
 	discordInvite: "https://discord.gg/FtU4NQNVDH",
 	docs: "https://docs.solidcraft.io/",

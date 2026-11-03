@@ -92,11 +92,8 @@ test("hero actions stay visible and layouts reflow at representative widths", as
 			actions.getByRole("link", { name: "Try in your browser" }),
 		).toHaveAttribute("href", site.app);
 		await expect(
-			actions.getByRole("link", { name: "release candidate" }),
+			actions.getByRole("link", { name: "try the release candidate" }),
 		).toHaveAttribute("href", site.appRc);
-		await expect(
-			actions.getByRole("link", { name: "latest build" }),
-		).toHaveAttribute("href", site.appEdge);
 		expect(
 			await page.evaluate(
 				() => document.documentElement.scrollWidth <= window.innerWidth,
