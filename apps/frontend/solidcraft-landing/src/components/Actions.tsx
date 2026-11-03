@@ -62,20 +62,21 @@ export default function Actions({
 			</a>
 			{versions && (
 				<p className="small muted" style={{ flexBasis: "100%" }}>
-					Other versions to try:{" "}
+					Other versions:{" "}
 					<a className="text-link" href={site.appRc}>
-						release candidate
+						try the release candidate
 					</a>{" "}
 					or{" "}
-					<a className="text-link" href={site.appEdge}>
-						latest build
-					</a>{" "}
-					in your browser, or{" "}
 					<a className="text-link" href={site.rcDownloads}>
-						pre-release desktop downloads
+						download it
 					</a>
-					. These can break, and designs saved in them may not open in the
-					stable version.
+					. It can break, and designs saved in it may not open in the stable
+					version. Designs you saved in the browser before November 3 are still
+					at{" "}
+					<a className="text-link" href="https://docs.solidcraft.io/app/">
+						the old address
+					</a>
+					.
 				</p>
 			)}
 		</div>

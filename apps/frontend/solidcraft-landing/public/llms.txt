@@ -21,7 +21,7 @@ SolidCore is a separate geometry-kernel project under development. Its progress 
 - [SolidCraft](https://solidcraft.io/): Project overview.
 - [Features](https://solidcraft.io/features/): Modeling tools and workflows.
 - [Downloads](https://solidcraft.io/download/): Desktop packages for Windows, macOS, Linux, and FreeBSD.
-- [Browser app](https://solidcraft.io/app): Stable entry point for using SolidCraft in a browser.
+- [Browser app](https://app.solidcraft.io/): Stable entry point for using SolidCraft in a browser.
 - [MCP and AI agents](https://solidcraft.io/mcp/): Overview of local agent workflows, setup, and permissions.
 
 ## Source and releases

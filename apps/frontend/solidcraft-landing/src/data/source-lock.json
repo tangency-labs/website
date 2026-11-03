@@ -11,5 +11,5 @@
 		"revision": "16c5ad9cec67741ab00a41b75b18dfa7985e70ef"
 	},
 	"applicationTests": "not-executed",
-	"destinationPolicy": "Browser links use https://solidcraft.io/app, temporarily redirected to https://docs.solidcraft.io/app; documentation uses https://docs.solidcraft.io/."
+	"destinationPolicy": "Browser links use https://app.solidcraft.io/; documentation uses https://docs.solidcraft.io/."
 }
