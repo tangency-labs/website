@@ -89,10 +89,9 @@ export default function Actions({
 						try the release candidate
 					</a>
 					. It can break, and designs saved in it may not open in the stable
-					version. Designs you saved in the browser before November 3 are still
-					at{" "}
-					<a className="text-link" href="https://docs.solidcraft.io/app/">
-						the old address
+					version. Designs you saved in the browser before November 3 can be{" "}
+					<a className="text-link" href={site.moveDesigns}>
+						brought over to the new address
 					</a>
 					.
 				</p>
