@@ -1,46 +1,9 @@
-import { useEffect, useState } from "react";
 import { site } from "../data/site";
 import { formatBytes, kindLabel, platforms } from "../lib/download-utils";
-import {
-	pickReleaseCandidate,
-	type ReleaseCandidate,
-	releaseListEndpoint,
-} from "../lib/release-candidate";
-import { useRelease } from "../lib/use-release";
-
-type State =
-	| { status: "loading" | "failed" | "none" }
-	| { status: "ready"; candidate: ReleaseCandidate };
+import { useReleaseCandidate } from "../lib/use-release-candidate";
 
 export default function ReleaseCandidateDownloads() {
-	const { tag: stableTag } = useRelease();
-	const [state, setState] = useState<State>({ status: "loading" });
-	useEffect(() => {
-		let current = true;
-		(async () => {
-			try {
-				const response = await fetch(releaseListEndpoint, {
-					headers: { Accept: "application/vnd.github+json" },
-					credentials: "omit",
-					signal: AbortSignal.timeout(10_000),
-				});
-				if (!response.ok) throw new Error(`GitHub: ${response.status}`);
-				const candidate = pickReleaseCandidate(
-					await response.json(),
-					stableTag,
-				);
-				if (current)
-					setState(
-						candidate ? { status: "ready", candidate } : { status: "none" },
-					);
-			} catch {
-				if (current) setState({ status: "failed" });
-			}
-		})();
-		return () => {
-			current = false;
-		};
-	}, [stableTag]);
+	const state = useReleaseCandidate();
 
 	if (state.status === "none")
 		return <p className="small muted">No release candidate right now.</p>;
