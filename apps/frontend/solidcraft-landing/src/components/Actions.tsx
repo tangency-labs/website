@@ -51,9 +51,14 @@ export default function Actions({
 					{label}
 				</a>
 				{direct && (
-					<a className="small other-downloads" href="/download/">
-						Other downloads
-					</a>
+					<div className="download-links">
+						<a className="small other-downloads" href="/download/">
+							Other downloads
+						</a>
+						<a className="small pre-release-download" href={site.rcDownloads}>
+							Pre-release
+						</a>
+					</div>
 				)}
 			</div>
 			<a className="button secondary" href={site.app}>
@@ -65,10 +70,6 @@ export default function Actions({
 					Other versions:{" "}
 					<a className="text-link" href={site.appRc}>
 						try the release candidate
-					</a>{" "}
-					or{" "}
-					<a className="text-link" href={site.rcDownloads}>
-						download it
 					</a>
 					. It can break, and designs saved in it may not open in the stable
 					version. Designs you saved in the browser before November 3 are still

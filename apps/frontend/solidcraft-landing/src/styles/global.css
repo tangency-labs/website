@@ -256,6 +256,30 @@ code {
 .other-downloads:hover {
 	text-decoration: underline;
 }
+.download-links {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	gap: 6px 10px;
+}
+.download-links .other-downloads {
+	align-self: auto;
+}
+.pre-release-download {
+	display: inline-flex;
+	align-items: center;
+	min-height: 28px;
+	padding: 2px 10px;
+	border: 1px solid var(--link);
+	border-radius: 6px;
+	color: var(--link);
+	text-decoration: none;
+	white-space: nowrap;
+}
+.pre-release-download:hover {
+	text-decoration: underline;
+}
 .button {
 	min-height: 50px;
 	display: inline-flex;
