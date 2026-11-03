@@ -8,6 +8,7 @@ import {
 	type Platform,
 } from "../lib/download-utils";
 import { useRelease } from "../lib/use-release";
+import { useReleaseCandidate } from "../lib/use-release-candidate";
 
 // `direct` makes the main button a plain link to the installer asset for the
 // visitor's system on github.com (an attachment, so the browser downloads the
@@ -36,8 +37,14 @@ export default function Actions({
 			active = false;
 		};
 	}, []);
+	const candidate = useReleaseCandidate(direct);
 	const platform = system?.platform ?? null;
 	const artifact = direct ? homeDownload(release.artifacts, system) : null;
+	// The release candidate for this system, on click only; otherwise its section of the download page.
+	const candidateArtifact =
+		candidate.status === "ready"
+			? homeDownload(candidate.candidate.artifacts, system)
+			: null;
 	const label = compact
 		? "Download"
 		: platform
@@ -55,9 +62,19 @@ export default function Actions({
 						<a className="small other-downloads" href="/download/">
 							Other downloads
 						</a>
-						<a className="small pre-release-download" href={site.rcDownloads}>
-							Pre-release
-						</a>
+						{candidate.status !== "none" && (
+							<a
+								aria-label={
+									candidateArtifact && candidate.status === "ready"
+										? `Download pre-release ${candidate.candidate.tag} for ${candidateArtifact.platform}`
+										: "Pre-release downloads"
+								}
+								className="small pre-release-download"
+								href={candidateArtifact?.url ?? site.rcDownloads}
+							>
+								Pre-release
+							</a>
+						)}
 					</div>
 				)}
 			</div>

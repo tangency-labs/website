@@ -1,12 +1,16 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 import { routes, site } from "../../src/data/site";
+import { releaseListEndpoint } from "../../src/lib/release-candidate";
 import { mockProgress } from "./progress-fixture";
 import { endpoint, githubRelease, mockDownloadAssets } from "./release-fixture";
 
 test.beforeEach(async ({ page }) => {
 	await mockDownloadAssets(page);
 	await mockProgress(page);
+	await page.route(releaseListEndpoint, (route) =>
+		route.fulfill({ json: rcList("v9.0.0-rc.1") }),
+	);
 	await page.route(endpoint, (route) =>
 		route.fulfill({ json: githubRelease() }),
 	);
@@ -91,8 +95,7 @@ test("hero actions stay visible and layouts reflow at representative widths", as
 		await expect(
 			actions.getByRole("link", { name: "Try in your browser" }),
 		).toHaveAttribute("href", site.app);
-		const preRelease = actions.getByRole("link", { name: "Pre-release" });
-		await expect(preRelease).toHaveAttribute("href", site.rcDownloads);
+		const preRelease = actions.locator(".pre-release-download");
 		await expect(preRelease).toBeVisible();
 		expect(
 			await preRelease.evaluate((el) => el.scrollWidth <= el.clientWidth),
@@ -265,7 +268,8 @@ test("videos autoplay muted inline with looping and no native controls or third-
 	page.on("request", (request) => {
 		if (
 			!request.url().startsWith("http://127.0.0.1:4322") &&
-			request.url() !== endpoint
+			request.url() !== endpoint &&
+			request.url() !== releaseListEndpoint
 		)
 			external.push(request.url());
 	});
@@ -401,6 +405,71 @@ async function spoof(
 		{ platform, agent, touch },
 	);
 }
+
+const rcList = (tag: string) => [
+	{
+		tag_name: tag,
+		draft: false,
+		prerelease: true,
+		html_url: `https://github.com/tangency-labs/solidcraft/releases/tag/${tag}`,
+		assets: [
+			"windows-x64.msi",
+			"linux-x86_64.AppImage",
+			"macos-universal.dmg",
+		].map((suffix, index) => {
+			const name = `solidcraft-${tag.slice(1)}-${suffix}`;
+			return {
+				id: index + 1,
+				name,
+				size: 10,
+				browser_download_url: `https://github.com/tangency-labs/solidcraft/releases/download/${tag}/${name}`,
+			};
+		}),
+	},
+];
+
+test("pre-release button is a plain link to the release candidate for this system", async ({
+	page,
+}) => {
+	const windows = systems.find((system) => system.name === "Windows x64");
+	if (!windows) throw new Error("no Windows x64 system in the list");
+	await spoof(page, windows.platform, windows.agent);
+	await page.route(releaseListEndpoint, (route) =>
+		route.fulfill({ json: rcList("v9.0.0-rc.1") }),
+	);
+	const downloads: string[] = [];
+	const assetRequests: string[] = [];
+	page.on("download", (download) => downloads.push(download.url()));
+	page.on("request", (request) => {
+		if (request.url().includes("/releases/download/"))
+			assetRequests.push(request.url());
+	});
+	await page.goto("/");
+	await expect(page.locator(".hero .pre-release-download")).toHaveAttribute(
+		"href",
+		/\/download\/v9\.0\.0-rc\.1\/solidcraft-9\.0\.0-rc\.1-windows-x64\.msi$/,
+	);
+	await page.waitForTimeout(500);
+	expect(assetRequests).toEqual([]);
+	expect(downloads).toEqual([]);
+});
+
+test("pre-release button goes to the list when the list can't load, and hides with no candidate", async ({
+	page,
+}) => {
+	await page.route(releaseListEndpoint, (route) =>
+		route.fulfill({ status: 500 }),
+	);
+	await page.goto("/");
+	await expect(page.locator(".hero .pre-release-download")).toHaveAttribute(
+		"href",
+		site.rcDownloads,
+	);
+	await page.unroute(releaseListEndpoint);
+	await page.route(releaseListEndpoint, (route) => route.fulfill({ json: [] }));
+	await page.reload();
+	await expect(page.locator(".hero .pre-release-download")).toHaveCount(0);
+});
 
 for (const system of systems) {
 	test(`home button is a plain link to the installer and clicking it stays on the page: ${system.name}`, async ({
