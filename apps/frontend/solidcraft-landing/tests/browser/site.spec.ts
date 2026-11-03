@@ -91,6 +91,13 @@ test("hero actions stay visible and layouts reflow at representative widths", as
 		await expect(
 			actions.getByRole("link", { name: "Try in your browser" }),
 		).toHaveAttribute("href", site.app);
+		const preRelease = actions.getByRole("link", { name: "Pre-release" });
+		await expect(preRelease).toHaveAttribute("href", site.rcDownloads);
+		await expect(preRelease).toBeVisible();
+		expect(
+			await preRelease.evaluate((el) => el.scrollWidth <= el.clientWidth),
+			`Pre-release label fits at ${width}`,
+		).toBe(true);
 		await expect(
 			actions.getByRole("link", { name: "try the release candidate" }),
 		).toHaveAttribute("href", site.appRc);
