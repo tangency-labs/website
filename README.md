@@ -124,7 +124,7 @@ pnpm build
 pnpm preview
 ```
 
-The output is `apps/frontend/solidcraft-landing/dist/`. Preview runs at [localhost:4347](http://localhost:4347). Hosting is static files plus one small proxy, `public/_worker.js`, that serves `/app-rc/` and `/app-edge/` from docs.solidcraft.io; there is no other server runtime and no database.
+The output is `apps/frontend/solidcraft-landing/dist/`. Preview runs at [localhost:4347](http://localhost:4347). Hosting requires only static files; there is no server runtime or database.
 
 ### Cloudflare Pages
 
