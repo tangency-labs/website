@@ -20,7 +20,8 @@ await walk("dist");
 if (
 	files.some(
 		(file) =>
-			file !== "dist/_worker.js" && /(?:_worker\.js|server\/|functions\/)/.test(file),
+			file !== "dist/_worker.js" &&
+			/(?:_worker\.js|server\/|functions\/)/.test(file),
 	)
 )
 	throw new Error("Unexpected server runtime.");
