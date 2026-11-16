@@ -124,6 +124,7 @@ test("platform mapping distinguishes architecture, CLI, and non-user artifacts",
 		"solidcraft-linux-x86_64.AppImage",
 		"SHA256SUMS.txt",
 		"solidcraft-0.12.0-linux-x86_64.AppImage.zsync",
+		"solidcraft-0.12.0-linux-x86_64.pkg.tar.zst",
 	])
 		assert.equal(classifyArtifact(name, "0.12.0"), null);
 });
