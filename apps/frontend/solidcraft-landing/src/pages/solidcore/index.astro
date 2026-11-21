@@ -16,7 +16,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 			<h1>A geometry kernel<br>written in Rust.</h1>
 			<p class="lead">
 				SolidCore is a Rust port of SMLib, an open-source C++ geometry library
-				released by NVIDIA. It is being developed for use in SolidCraft.
+				released by NVIDIA. It is the geometry kernel SolidCraft runs on.
 			</p>
 			<div class="actions">
 				<a class="button primary" href="/solidcore/progress/">
@@ -58,21 +58,19 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 		<div class="container story-grid">
 			<div>
 				<p class="eyebrow">DEVELOPMENT STATUS</p>
-				<h2>Still in development.</h2>
+				<h2>The kernel behind SolidCraft.</h2>
 				<p class="lead">
-					SolidCore’s components are being ported and tested against the
-					original C++ code. Complete modeling operations and integration into
-					the editor are still in development.
+					SolidCraft runs on SolidCore. Its components are ported and tested
+					against the original C++ code, and the progress dashboard shows where
+					each one stands.
 				</p>
 			</div>
 			<div class="prose">
-				<h3>What works so far?</h3>
+				<h3>What does it do in SolidCraft?</h3>
 				<p>
-					The reviewed source includes math, NURBS, and curve components, with
-					surfaces and topology under way. Complete operations such as creating
-					primitives, booleans, and fillets are not ready yet.
+					SolidCraft’s modeling operations run on SolidCore, including booleans,
+					fillets, chamfers, shell, sweep, loft, revolve, and draft.
 				</p>
-				<p>SolidCraft v0.12.0 uses Truck at its geometry-kernel boundary.</p>
 				<a
 					class="text-link"
 					href={`${site.kernel}/blob/16c5ad9cec67741ab00a41b75b18dfa7985e70ef/README.md`}
