@@ -4,7 +4,7 @@
 
 SolidCraft supports sketching, constraints, editable feature history, part modeling, and file exchange. Consult the maintained documentation for supported commands, formats, installation requirements, and limitations. GitHub Releases is the source for current release versions, packages, and compatibility notes.
 
-SolidCore is a separate geometry-kernel project under development. Its progress reports track the Rust port of NVIDIA's SMLib and comparisons with the upstream C++ implementation; use those reports and the repository for current status.
+SolidCore is the geometry kernel SolidCraft runs on, also developed as its own project. Its progress reports track the Rust port of NVIDIA's SMLib and comparisons with the upstream C++ implementation; use those reports and the repository for current status.
 
 ## Documentation
 
