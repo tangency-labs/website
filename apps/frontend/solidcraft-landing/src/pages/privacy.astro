@@ -4,28 +4,93 @@ import ArticleLayout from "../layouts/ArticleLayout.astro";
 ---
 
 <ArticleLayout
-	description="What the SolidCraft desktop app, browser app, agent chat, and this website send over the network, and what stays on your computer."
+	description="What the SolidCraft desktop app (including its anonymous usage statistics), browser app, agent chat, and this website send over the network, and what stays on your computer."
 	eyebrow="PROJECT / PRIVACY"
 	title="Privacy"
 >
-	<p>Effective October 24, 2026.</p>
+	<p>Effective November 22, 2026.</p>
 	<h2>Desktop app</h2>
 	<p>
-		SolidCraft has no telemetry, no accounts, and no usage reporting. Your
-		designs stay on your computer unless you share them yourself.
+		SolidCraft has no accounts. Your designs stay on your computer unless you
+		share them yourself. Since 0.46.0 the desktop app also sends anonymous usage
+		statistics, described below. Those and the update check are the only things
+		it sends over the network on its own; everything else happens only when you
+		ask, such as sending a problem report, using the Assistant with an online
+		model, or opening a design link.
+	</p>
+	<h3>Update check</h3>
+	<p>
+		At startup, and again once a day while it stays open, SolidCraft asks the
+		GitHub API for the latest SolidCraft release. The request carries a fixed
+		User-Agent and nothing else: no version number, no machine or user
+		identifier, no usage data, and no cookies. GitHub sees it like any other
+		visit to its API, including your IP address and the time. If you choose{" "}
+		<strong>Update now</strong>, SolidCraft downloads the release files from
+		GitHub releases. Turn the check off under Preferences › General › Updates,
+		set <code>SOLIDCRAFT_UPDATE_CHECK=0</code>, or use the{" "}
+		<code>CheckForUpdates</code>
+		organization policy. Builds you compile yourself, the Flatpak, and the
+		browser app never check. Details are in{" "}
+		<a href={guide("updates")}>updates and privacy</a>.
+	</p>
+	<h3>Anonymous usage statistics</h3>
+	<p>
+		SolidCraft sends anonymous usage statistics so we know how many
+		installations there are, how many are used each day, for how long, and which
+		tools and operations people use. They are on by default. They count which
+		tools and commands are used, never your designs, file names, or anything you
+		type. The first start shows a notice with <strong>Settings</strong> and{" "}
+		<strong>Dismiss</strong>
+		buttons. It stays until you choose one of them, and nothing is counted
+		before it has been shown.
 	</p>
 	<p>
-		The one network request SolidCraft makes on its own is the update check. At
-		startup, and again once a day while it stays open, it asks the GitHub API
-		for the latest SolidCraft release. The request carries a fixed User-Agent
-		and nothing else: no version number, no machine or user identifier, no usage
-		data, and no cookies. GitHub sees it like any other visit to its API,
-		including your IP address and the time. If you choose{" "}
-		<strong>Update now</strong>, SolidCraft downloads the release files from
-		GitHub releases. Turn the check off under Preferences, or set{" "}
-		<code>SOLIDCRAFT_UPDATE_CHECK=0</code>. Builds you compile yourself, the
-		Flatpak, and the browser app never check. Details are in{" "}
-		<a href={guide("updates")}>updates and privacy</a>.
+		One report is sent per day of use. It holds the SolidCraft version, your
+		operating system and processor architecture, whether it is the desktop or
+		web app, the minutes in which you used the keyboard, mouse, or touch in the
+		window, how many times each command changed your design or each tool was
+		started, which commands failed and the kind of error (never its message),
+		and how long operations and open dialogs took, in coarse time buckets. These
+		are split by whether you, an assistant, or a plugin acted. It also carries a
+		random installation ID, made the first time and not derived from your
+		computer or account. Never sent: command parameters, design or file names,
+		paths, geometry, sketches, text you type, plugin data, your name, account or
+		email, hardware identifiers, locale, or settings.{" "}
+		<strong>Preferences › Privacy › Show what&rsquo;s sent</strong>
+		shows the exact contents of the next report.
+	</p>
+	<p>
+		Reports go only to <code>https://metrics.solidcraft.io/v1/report</code>,
+		over HTTPS and without cookies, passing through Cloudflare&rsquo;s network
+		on the way. Only release builds send them, in the background, after the day
+		has finished. Offline, a report waits and is deleted if it is not sent
+		within 7 days. The server stores reports without IP addresses and keeps them
+		for 90 days; after that it keeps only daily totals, with no installation ID
+		in them. Only the SolidCraft maintainers see them. To limit floods of fake
+		reports, the server keeps a keyed hash of the sender&rsquo;s address in
+		memory only, changed daily and forgotten at the end of the day. Our hosting
+		provider, Railway, keeps request logs that include the sender&rsquo;s IP
+		address for up to 30 days; we don&rsquo;t use them.
+	</p>
+	<p>
+		To turn them off, clear
+		<strong>Preferences › Privacy › Share anonymous usage statistics</strong>
+		(<strong>Settings</strong>
+		on the notice opens it), set <code>DO_NOT_TRACK=1</code> or
+		<code>SOLIDCRAFT_NO_TELEMETRY=1</code>, or use the
+		<code>UsageStatistics</code>
+		organization policy. When they are off, nothing is counted and reports still
+		waiting are deleted.{" "}
+		<strong>Delete my data</strong>
+		in Preferences › Privacy asks the server to delete every report it holds for
+		your installation ID and starts a new random ID; the daily totals stay,
+		since they contain no ID. A build compiled without the
+		<code>usage-stats</code>
+		feature leaves all of this out. The full description is in the{" "}
+		<a
+			href="https://github.com/tangency-labs/solidcraft/blob/main/docs/privacy.md"
+			>privacy documentation</a
+		>.
 	</p>
 	<p>
 		Crash reports are written to a folder on your computer. SolidCraft does not
@@ -84,10 +149,11 @@ import ArticleLayout from "../layouts/ArticleLayout.astro";
 	</p>
 	<h2>Changes to this policy</h2>
 	<p>
-		SolidCraft doesn&rsquo;t collect usage data today. If we ever add anonymous
-		usage statistics, they will be opt-in, we&rsquo;ll say exactly what&rsquo;s
-		collected, and we&rsquo;ll update this page (with a new effective date) and
-		announce it in the release notes before shipping it.
+		0.46.0 added anonymous usage statistics, on by default, with a notice at
+		first start and an off switch in Preferences › Privacy. This page was
+		updated after that release; it should have been updated before it. Future
+		changes will be listed here with a new effective date and noted in the
+		release notes.
 	</p>
 	<h2>Contact</h2>
 	<p>
