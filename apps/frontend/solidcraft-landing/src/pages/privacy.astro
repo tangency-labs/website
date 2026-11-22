@@ -35,14 +35,21 @@ import ArticleLayout from "../layouts/ArticleLayout.astro";
 	</p>
 	<h3>Anonymous usage statistics</h3>
 	<p>
-		SolidCraft sends anonymous usage statistics so we know how many
-		installations there are, how many are used each day, for how long, and which
-		tools and operations people use. They are on by default. They count which
+		We collect them to see which tools and commands get used, which ones fail,
+		and which are slow, so we know where to improve the geometry kernel and the
+		tools. They also tell us how many installations there are and how many are
+		used each day, and for how long. They are on by default. They count which
 		tools and commands are used, never your designs, file names, or anything you
 		type. The first start shows a notice with <strong>Settings</strong> and{" "}
 		<strong>Dismiss</strong>
 		buttons. It stays until you choose one of them, and nothing is counted
 		before it has been shown.
+	</p>
+	<p>
+		<strong>Delete my data</strong>
+		in Preferences › Privacy removes what was already sent: it asks the server
+		to delete every report it holds for your installation ID and resets the ID
+		to a new random one. The daily totals stay, since they contain no ID.
 	</p>
 	<p>
 		One report is sent per day of use. It holds the SolidCraft version, your
@@ -80,11 +87,7 @@ import ArticleLayout from "../layouts/ArticleLayout.astro";
 		<code>SOLIDCRAFT_NO_TELEMETRY=1</code>, or use the
 		<code>UsageStatistics</code>
 		organization policy. When they are off, nothing is counted and reports still
-		waiting are deleted.{" "}
-		<strong>Delete my data</strong>
-		in Preferences › Privacy asks the server to delete every report it holds for
-		your installation ID and starts a new random ID; the daily totals stay,
-		since they contain no ID. A build compiled without the
+		waiting are deleted. A build compiled without the
 		<code>usage-stats</code>
 		feature leaves all of this out. The full description is in the{" "}
 		<a
