@@ -12,11 +12,12 @@ import ArticleLayout from "../layouts/ArticleLayout.astro";
 	<h2>Desktop app</h2>
 	<p>
 		SolidCraft has no accounts. Your designs stay on your computer unless you
-		share them yourself. Since 0.46.0 the desktop app also sends anonymous usage
-		statistics, described below. Those and the update check are the only things
-		it sends over the network on its own; everything else happens only when you
-		ask, such as sending a problem report, using the Assistant with an online
-		model, or opening a design link.
+		share them yourself. The desktop app has also had anonymous usage statistics
+		since 0.46.0, on by default in 0.46 and only if you agree from 0.47,
+		described below. Those and the update check are the only things it sends
+		over the network on its own; everything else happens only when you ask, such
+		as sending a problem report, using the Assistant with an online model, or
+		opening a design link.
 	</p>
 	<h3>Update check</h3>
 	<p>
@@ -38,12 +39,17 @@ import ArticleLayout from "../layouts/ArticleLayout.astro";
 		We collect them to see which tools and commands get used, which ones fail,
 		and which are slow, so we know where to improve the geometry kernel and the
 		tools. They also tell us how many installations there are and how many are
-		used each day, and for how long. They are on by default. They count which
-		tools and commands are used, never your designs, file names, or anything you
-		type. The first start shows a notice with <strong>Settings</strong> and{" "}
-		<strong>Dismiss</strong>
-		buttons. It stays until you choose one of them, and nothing is counted
-		before it has been shown.
+		used each day, and for how long. They count which tools and commands are
+		used, never your designs, file names, or anything you type. From 0.47,
+		nothing is counted or sent until you agree. The first start shows a notice
+		with <strong>Settings</strong> and <strong>OK</strong> buttons. Only{" "}
+		<strong>OK</strong>
+		starts counting; until then nothing is counted and nothing is kept to send
+		later. <strong>Settings</strong> alone is not an answer, and the notice
+		stays. If you close it with the ×, it shows again at the next start. Turning
+		sharing off in Preferences › Privacy ends the notice, and nothing is ever
+		counted. Installations of 0.46 see the notice once and count nothing until
+		OK; anyone who had turned sharing off stays off.
 	</p>
 	<p>
 		<strong>Delete my data</strong>
@@ -83,7 +89,9 @@ import ArticleLayout from "../layouts/ArticleLayout.astro";
 		To turn them off, clear
 		<strong>Preferences › Privacy › Share anonymous usage statistics</strong>
 		(<strong>Settings</strong>
-		on the notice opens it), set <code>DO_NOT_TRACK=1</code> or
+		on the notice opens it; switching it on there counts as OK), set
+		<code>DO_NOT_TRACK=1</code>
+		or
 		<code>SOLIDCRAFT_NO_TELEMETRY=1</code>, or use the
 		<code>UsageStatistics</code>
 		organization policy. When they are off, nothing is counted and reports still
@@ -154,9 +162,9 @@ import ArticleLayout from "../layouts/ArticleLayout.astro";
 	<p>
 		0.46.0 added anonymous usage statistics, on by default, with a notice at
 		first start and an off switch in Preferences › Privacy. This page was
-		updated after that release; it should have been updated before it. Future
-		changes will be listed here with a new effective date and noted in the
-		release notes.
+		updated after that release; it should have been updated before it. From
+		0.47, nothing is counted until you click OK. Future changes will be listed
+		here with a new effective date and noted in the release notes.
 	</p>
 	<h2>Contact</h2>
 	<p>
