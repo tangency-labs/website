@@ -121,6 +121,8 @@ export function normalizeRelease(
 			!live &&
 			asset.name.includes(`-${version}-`) &&
 			!asset.name.endsWith(".zsync") &&
+			// Arch Linux packages are not listed on the site yet.
+			!asset.name.endsWith(".pkg.tar.zst") &&
 			!asset.name.startsWith("solidcraft-web-")
 		)
 			throw new Error(`Unmapped versioned asset: ${asset.name}`);
