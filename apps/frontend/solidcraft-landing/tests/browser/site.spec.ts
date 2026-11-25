@@ -157,14 +157,14 @@ test("download filters select correct architecture, show empty state, and reset"
 	await expect(page.locator(".package")).toHaveCount(1);
 	await expect(page.locator(".package .button")).toHaveAttribute(
 		"href",
-		/releases\/download\/v0\.22\.0\/solidcraft-0\.22\.0-linux-aarch64\.deb$/,
+		/releases\/download\/v0\.49\.0\/solidcraft-0\.49\.0-linux-aarch64\.deb$/,
 	);
 	await expect(page.locator("[data-platform-download] a")).toHaveText(
 		"Download SolidCraft for Linux",
 	);
 	await expect(page.locator("[data-platform-download] a")).toHaveAttribute(
 		"href",
-		/releases\/download\/v0\.22\.0\//,
+		/releases\/download\/v0\.49\.0\//,
 	);
 	await page.getByLabel("Platform", { exact: true }).selectOption("macOS");
 	await expect(
@@ -201,7 +201,7 @@ test("macOS gets the disk image link while all artifacts stay visible", async ({
 	);
 	await expect(page.locator("[data-platform-download] a")).toHaveAttribute(
 		"href",
-		/releases\/download\/v0\.22\.0\/solidcraft-0\.22\.0-macos-universal\.dmg$/,
+		/releases\/download\/v0\.49\.0\/solidcraft-0\.49\.0-macos-universal\.dmg$/,
 	);
 	await expect(page.locator(".package")).toHaveCount(22);
 });
@@ -360,31 +360,31 @@ const systems = [
 		name: "Windows ARM64",
 		platform: "Win32",
 		agent: "Mozilla/5.0 (Windows NT 10.0; ARM64)",
-		href: /releases\/download\/v0\.22\.0\/solidcraft-0\.22\.0-windows-arm64\.msi$/,
+		href: /releases\/download\/v0\.49\.0\/solidcraft-0\.49\.0-windows-arm64\.msi$/,
 	},
 	{
 		name: "Windows x86",
 		platform: "Win32",
 		agent: "Mozilla/5.0 (Windows NT 10.0; Win32; x86)",
-		href: /releases\/download\/v0\.22\.0\/solidcraft-0\.22\.0-windows-x86\.msi$/,
+		href: /releases\/download\/v0\.49\.0\/solidcraft-0\.49\.0-windows-x86\.msi$/,
 	},
 	{
 		name: "Windows x64",
 		platform: "Win32",
 		agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
-		href: /releases\/download\/v0\.22\.0\/solidcraft-0\.22\.0-windows-x64\.msi$/,
+		href: /releases\/download\/v0\.49\.0\/solidcraft-0\.49\.0-windows-x64\.msi$/,
 	},
 	{
 		name: "macOS",
 		platform: "MacIntel",
 		agent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)",
-		href: /releases\/download\/v0\.22\.0\/solidcraft-0\.22\.0-macos-universal\.dmg$/,
+		href: /releases\/download\/v0\.49\.0\/solidcraft-0\.49\.0-macos-universal\.dmg$/,
 	},
 	{
 		name: "Linux x86_64",
 		platform: "Linux x86_64",
 		agent: "Mozilla/5.0 (X11; Linux x86_64)",
-		href: /releases\/download\/v0\.22\.0\/solidcraft-0\.22\.0-linux-x86_64\.AppImage$/,
+		href: /releases\/download\/v0\.49\.0\/solidcraft-0\.49\.0-linux-x86_64\.AppImage$/,
 	},
 ];
 
@@ -585,17 +585,17 @@ test("download page lists every platform's packages as direct links", async ({
 	for (const link of await page.locator(".package a.button").all())
 		await expect(link).toHaveAttribute(
 			"href",
-			/^https:\/\/github\.com\/tangency-labs\/solidcraft\/releases\/download\/v0\.22\.0\//,
+			/^https:\/\/github\.com\/tangency-labs\/solidcraft\/releases\/download\/v0\.49\.0\//,
 		);
 	// Windows x64 order: installer, portable zip, then the bare app.
 	const winKinds = page.locator(".package", { hasText: "x64" }).locator("h3");
 	await expect(winKinds.nth(0)).toHaveText("Installer (recommended)");
 	await expect(winKinds.nth(1)).toHaveText("Portable ZIP");
 	await expect(winKinds.nth(2)).toHaveText("App only, no installer");
-	await expect(page.locator("[data-release-tag]")).toHaveText("v0.22.0");
+	await expect(page.locator("[data-release-tag]")).toHaveText("v0.49.0");
 	await expect(
 		page.locator("a[data-release-checksums]").first(),
-	).toHaveAttribute("href", /releases\/download\/v0\.22\.0\/SHA256SUMS\.txt$/);
+	).toHaveAttribute("href", /releases\/download\/v0\.49\.0\/SHA256SUMS\.txt$/);
 	await expect(page.locator("[data-homebrew]")).toContainText(
 		"brew install --cask tangency-labs/tap/solidcraft",
 	);
