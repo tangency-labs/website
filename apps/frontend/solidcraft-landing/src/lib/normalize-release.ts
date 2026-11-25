@@ -121,7 +121,12 @@ export function normalizeRelease(
 			!live &&
 			asset.name.includes(`-${version}-`) &&
 			!asset.name.endsWith(".zsync") &&
-			!asset.name.startsWith("solidcraft-web-")
+			!asset.name.startsWith("solidcraft-web-") &&
+			// Reviewed as not offered on the download page: Arch packages, debug
+			// symbols and the IT-admin policy templates.
+			!/\.pkg\.tar\.zst$|\.pdb\.zip$|-windows-policy-templates\.zip$/.test(
+				asset.name,
+			)
 		)
 			throw new Error(`Unmapped versioned asset: ${asset.name}`);
 	}
