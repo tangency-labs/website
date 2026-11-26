@@ -2,7 +2,12 @@ import { execFile } from "node:child_process";
 import { promisify } from "node:util";
 import { expect, test } from "@playwright/test";
 import { mockProgress } from "./progress-fixture";
-import { endpoint, githubRelease, mockDownloadAssets } from "./release-fixture";
+import {
+	endpoint,
+	fallbackTagRe,
+	githubRelease,
+	mockDownloadAssets,
+} from "./release-fixture";
 
 test.beforeEach(async ({ page }) => {
 	await mockDownloadAssets(page);
@@ -26,7 +31,7 @@ test("downloads hydrate in development and survive a concurrent production build
 	await expect(page.locator(".package")).toHaveCount(1);
 	await expect(page.locator(".package a")).toHaveAttribute(
 		"href",
-		/releases\/download\/v0\.49\.0\//,
+		new RegExp(`releases/download/${fallbackTagRe}/`),
 	);
 	await page.setViewportSize({ width: 390, height: 844 });
 	const menu = page.locator(".mobile-menu");

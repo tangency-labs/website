@@ -69,7 +69,7 @@ The root contains the pnpm workspace, shared lockfile, and CI workflow. Keep dep
 
 Downloads fetch the latest stable release from GitHub in the browser. Validated metadata is shared between download controls, cached for five minutes, and refreshed while the page is open. New releases appear without rebuilding. Checked-in release metadata supplies working package links when JavaScript or GitHub is unavailable.
 
-The homepage Download button is a plain link to the installer asset for the visitor’s system on `github.com/tangency-labs/solidcraft/releases/download/<tag>/<asset>` (Windows x64 EXE, macOS DMG, Linux AppImage), chosen in the browser after render from the same release metadata as the rest of the site. GitHub serves assets as attachments, so a click downloads the file and the visitor stays on the page. Unknown systems (mobile, FreeBSD, unknown CPU) link to `/download/`, which lists every package as a direct link with the version, size, and `SHA256SUMS`. Nothing downloads automatically: no scripted clicks, redirects, meta refresh, iframes, or prefetching of assets. Only a click downloads. `src/data/releases.json` must track the latest stable release (`pnpm releases:refresh vX.Y.Z`, then review the candidate); browsers replace it with live GitHub data. Releases come from `tangency-labs/solidcraft` and require validated release URLs.
+The homepage Download button is a plain link to the installer asset for the visitor’s system on `github.com/tangency-labs/solidcraft/releases/download/<tag>/<asset>` (Windows x64 EXE, macOS DMG, Linux AppImage), chosen in the browser after render from the same release metadata as the rest of the site. GitHub serves assets as attachments, so a click downloads the file and the visitor stays on the page. Unknown systems (mobile, FreeBSD, unknown CPU) link to `/download/`, which lists every package as a direct link with the version, size, and `SHA256SUMS`. Nothing downloads automatically: no scripted clicks, redirects, meta refresh, iframes, or prefetching of assets. Only a click downloads. `src/data/releases.json` tracks the latest stable release: the Release sync workflow runs `pnpm releases:refresh latest` every 15 minutes (or on a `solidcraft-release` repository dispatch), runs the site checks, and pushes the new snapshot to `main`, which redeploys the site. Browsers replace it with live GitHub data. Releases come from `tangency-labs/solidcraft` and require validated release URLs.
 
 ### SolidCore Progress
 
@@ -79,7 +79,7 @@ Builds do not fetch release or progress data. Public requests happen in the brow
 
 ### Updating Release Metadata
 
-To prepare an update to the checked-in release metadata:
+The Release sync workflow updates the checked-in metadata on its own. To update it by hand, run `pnpm releases:refresh latest`. To prepare a specific release for review instead:
 
 ```sh
 pnpm releases:refresh vX.Y.Z

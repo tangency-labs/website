@@ -1,0 +1,68 @@
+name: Release sync
+# Keeps src/data/releases.json on the latest stable SolidCraft release, so the
+# built pages (and visitors without JavaScript) show the current version.
+# A push to main redeploys the site on Cloudflare Pages.
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+  repository_dispatch:
+    types: [solidcraft-release]
+permissions:
+  contents: write
+concurrency:
+  group: release-sync
+  cancel-in-progress: false
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/frontend/solidcraft-landing
+    steps:
+      - uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.3.0
+        with:
+          ref: main
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version-file: apps/frontend/solidcraft-landing/.node-version
+      - run: npm install --global pnpm@12.10.1
+      - run: pnpm install --frozen-lockfile
+      - name: Refresh release metadata
+        id: refresh
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          pnpm releases:refresh latest
+          if git diff --quiet -- src/data/releases.json; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "tag=$(node -p 'require("./src/data/releases.json").tag')" >> "$GITHUB_OUTPUT"
+          fi
+      - if: steps.refresh.outputs.changed == 'true'
+        run: pnpm exec biome ci .
+        working-directory: .
+      - if: steps.refresh.outputs.changed == 'true'
+        run: pnpm typecheck
+      - if: steps.refresh.outputs.changed == 'true'
+        run: pnpm test:unit
+      - if: steps.refresh.outputs.changed == 'true'
+        run: pnpm build
+      - if: steps.refresh.outputs.changed == 'true'
+        run: pnpm exec playwright install --with-deps chromium
+      - if: steps.refresh.outputs.changed == 'true'
+        run: pnpm test:e2e
+      - if: steps.refresh.outputs.changed == 'true'
+        run: pnpm test:dev
+      - name: Commit and push
+        if: steps.refresh.outputs.changed == 'true'
+        env:
+          TAG: ${{ steps.refresh.outputs.tag }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/data/releases.json
+          git commit -m "Downloads: the fallback release is ${TAG#v}"
+          git pull --rebase origin main
+          git push origin HEAD:main
